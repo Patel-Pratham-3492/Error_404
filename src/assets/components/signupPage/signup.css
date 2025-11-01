@@ -1,0 +1,116 @@
+.signup-page {
+    position: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("/images/signbg.jpg") no-repeat center center/cover;
+    overflow: hidden;
+    width: 100%;
+}
+
+.signup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 1;
+}
+
+.signup-box {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 9px;
+    width: 450px;
+    padding: 40px 35px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    backdrop-filter: blur(12px);
+    color: #fff;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+}
+
+.signup-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 45px rgba(255,77,77,0.3);
+}
+
+.signup-box h2 {
+    font-size: 2rem;
+    color: #ff4d4d;
+    margin-bottom: 10px;
+}
+.subtitle {
+    font-size: 0.9rem;
+    color: #bbb;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 18px;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    transition: border 0.3s ease;
+}
+
+.form-group input:focus {
+    border: 2px solid #ff4d4d;
+}
+
+.btn-red {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #ff4d4d, #e60000);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-red:hover {
+    background: #cc0000;
+    transform: scale(1.03);
+}
+
+/* Login link */
+.login-link {
+    margin-top: 20px;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+.login-link a {
+    color: #ff4d4d;
+    font-weight: 600;
+    text-decoration: none;
+}
+.login-link a:hover {
+    text-decoration: underline;
+}
