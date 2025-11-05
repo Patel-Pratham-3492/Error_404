@@ -14,7 +14,7 @@
   background: #ffffff;
   padding: 12px 40px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  color: #fff;
+  top: 0;
   position: sticky;
   z-index: 1000;
 }
@@ -22,6 +22,7 @@
 .manager-logo {
   font-weight: 700;
   color: #212529;
+  font-size: 1.5rem;
 }
 .manager-center {
   flex: 1;
@@ -89,7 +90,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 24px;
-  padding: 40px;
+  padding: 50px 40px;
 }
 
 .grid-card {

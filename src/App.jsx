@@ -10,6 +10,7 @@ import Customerdash from './assets/components/customer/customerdash';
 import LandingPage from "./assets/components/landingPage/landingPage";
 import Login from "./assets/components/loginPage/Login";
 import Signup from "./assets/components/signupPage/signup";
+import Waiter from './assets/components/waiter/waiter';
 // import SignupManager from "./assets/components/signupPage/signup-manager";
 // import SignupStaff from "./assets/components/signupPage/signup-staff";
 
@@ -23,6 +24,8 @@ function App() {
         <Route path="/host" element={<Host />} />
         <Route path="/manager" element={<Manager />} />
         <Route path="/customerdash" element={<Customerdash />} />
+        <Route path="/waiter" element={<Waiter />} />
+        
       </Routes>
     </Router>
   );

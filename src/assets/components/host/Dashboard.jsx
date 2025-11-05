@@ -6,9 +6,9 @@ function Dashboard({ onNavigate }) {
   const menuItems = [
     { icon: <FaCalendarAlt />, title: "Reservations", desc: "Manage guest reservations", page: "reservations" },
     { icon: <FaUtensils />, title: "Tables", desc: "View available tables", page: "tables" },
+    { icon: <FaClipboardList />, title: "Orders", desc: "View and manage orders", page: "orders" },
     { icon: <FaUsers />, title: "Customers", desc: "Track customer data", page: "customers" },
     { icon: <FaChartBar />, title: "Reports", desc: "View analytics and stats", page: "reports" },
-    { icon: <FaClipboardList />, title: "Orders", desc: "View and manage orders", page: "orders" },
   ];
 
   return (
