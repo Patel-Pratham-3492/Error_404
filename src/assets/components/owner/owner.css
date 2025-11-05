@@ -1,0 +1,113 @@
+/* CONTAINER */
+.owner-container{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #f8f9fa;
+    font-family: "Poppins", sans-serif;
+}
+
+/* NAVBAR */
+.owner-navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 12px 40px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0 ,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.owner-logo{
+    font-weight: 700;
+    color: #212529;
+}
+
+/* Search bar */
+.owner-search input{
+    width: 300px;
+    padding: 10px 14px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    outline: none;
+    background: #f1f3f5;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.owner-search input:focus{
+    border-color: #ff4d4d;
+    background: #fff;
+}
+
+.owner-profile{
+    position: relative;
+}
+.profile-icon{
+    font-size: 30px;
+    color: #343a40;
+}
+
+.profile-icon:hover{
+    color: #ff4d4d;
+}
+.dropdown-menu{
+    position: absolute;
+    right: 0;
+    top: 45px;
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0 ,0.1);
+    border-radius: 10px;
+    width: 160px;
+    padding: 8px;
+    z-index: 10;
+}
+.dropdown-menu p{
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: #495057;
+    transition: background 0.2s;
+}
+
+.dropdown-menu p:hover{
+    background: #ffe3e3;
+}
+
+/* Dashboard */
+.owner-dashboard{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    padding: 40px;
+}
+
+.dashboard-card{
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0 ,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.dashboard-card:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(255, 77, 77 ,0.3);
+}
+
+.dashboard-icon{
+    font-size: 40px;
+    color: #ff4d4d;
+    margin-bottom: 10px;
+}
+
+.dashboard-card h3{
+    margin-top: 8px;
+    color: #212529;
+    font-weight: 600;
+}

@@ -11,6 +11,7 @@ import LandingPage from "./assets/components/landingPage/landingPage";
 import Login from "./assets/components/loginPage/Login";
 import Signup from "./assets/components/signupPage/signup";
 import Waiter from './assets/components/waiter/waiter';
+import Owner from './assets/components/owner/owner';
 // import SignupManager from "./assets/components/signupPage/signup-manager";
 // import SignupStaff from "./assets/components/signupPage/signup-staff";
 
@@ -25,6 +26,8 @@ function App() {
         <Route path="/manager" element={<Manager />} />
         <Route path="/customerdash" element={<Customerdash />} />
         <Route path="/waiter" element={<Waiter />} />
+        <Route path="/owner" element={<Owner />} />
+        
         
       </Routes>
     </Router>

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { FaUserCircle, FaCog, FaSignOutAlt, FaClipboardList, FaTable, FaCalendarAlt, FaChartBar,FaUsers } from "react-icons/fa";
-import "./waiter";
+import "./waiter.css";
 
 function Waiter() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
