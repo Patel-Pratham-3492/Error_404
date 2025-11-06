@@ -1,0 +1,64 @@
+.navbar {
+  transition: all 0.4s ease;
+  padding: 1rem 2rem;
+}
+
+/* Transparent at top */
+.navbar-transparent {
+  background-color: transparent;
+}
+
+/* Solid when scrolled */
+.navbar-scrolled {
+  background-color: #1a1a1a !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-brand {
+  font-family: "Playfair Display", serif;
+  font-size: 2.3rem; /* Increased initial size */
+  font-weight: 1200;
+  color: #dc3545 !important;
+  letter-spacing: 1px;
+  transition: font-size 0.4s ease, transform 0.4s ease;
+}
+
+
+.nav-link {
+  color: #fff !important;
+  margin: 0 0.75rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color:#dc3545;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.btn-book {
+  background-color:#dc3545;
+  color: #1a1a1a;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-book:hover {
+  background-color: #fff;
+  color: #1a1a1a;
+}
+
+.navbar-scrolled .navbar-brand {
+  font-size: 1.5rem; /* About half the size */
+  transform: translateY(-2px);
+}

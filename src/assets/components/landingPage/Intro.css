@@ -1,0 +1,84 @@
+.intro {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1d1d1d 0%, #2b2b2b 100%);
+  color: #f1faee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.logo-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gg {
+  font-size: 5rem;
+  font-weight: 900;
+  color: #e63946; /* Grill Genius red */
+  font-family: "Playfair Display", serif;
+  letter-spacing: -10px;
+  transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.gg.second {
+  transform: rotate(-10deg);
+  margin-left: -15px;
+  color: #ffd166; /* Golden accent */
+  text-shadow: 0 0 15px rgba(255, 209, 102, 0.5);
+}
+
+.intro-title {
+  font-family: "Playfair Display", serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #f1faee;
+  margin-top: 0.75rem;
+}
+
+.intro-desc {
+  max-width: 600px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #f8f9fa;
+  margin-top: 1rem;
+}
+
+.intro-buttons .btn {
+  padding: 0.75rem 1.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+/* 🔥 Red "Order Now" button */
+.btn-order {
+  background-color: #e63946;
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
+}
+
+.btn-order:hover {
+  transform: translateY(-5px);
+  background-color: #c62839;
+  box-shadow: 0 6px 14px rgba(230, 57, 70, 0.4);
+}
+
+/* ✨ White "Book a Table" button with gold border */
+.btn-book {
+  background-color: transparent;
+  color: #ffd166;
+  border: 2px solid #ffd166;
+}
+
+.btn-book:hover {
+  transform: translateY(-5px);
+  background-color: #ffd166;
+  color: #1d1d1d;
+}

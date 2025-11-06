@@ -11,6 +11,7 @@ import Login from "./assets/components/loginPage/Login";
 import Signup from "./assets/components/signupPage/signup";
 import Waiter from './assets/components/waiter/waiter';
 import Owner from './assets/components/owner/owner';
+import LandingPage from './assets/components/landingPage/LandingPage';
 // import SignupManager from "./assets/components/signupPage/signup-manager";
 // import SignupStaff from "./assets/components/signupPage/signup-staff";
 
@@ -18,7 +19,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/host" element={<Host />} />
         <Route path="/manager" element={<Manager />} />
