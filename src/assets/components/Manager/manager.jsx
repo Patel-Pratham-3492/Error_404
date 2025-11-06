@@ -10,8 +10,7 @@ function Manager() {
     {title: "Tables" , icon: <FaTable />},
     {title: "Staff" , icon: <FaUsers />},
     {title: "Reports" , icon: <FaChartBar />},
-    {title: "Tasks" , icon: <FaClipboardList />},
-    {title: "Settings" , icon: <FaCog />},
+    // {title: "Settings" , icon: <FaCog />},
 
   ];
 

@@ -10,9 +10,6 @@ function Waiter() {
     { title: "Tables", icon: <FaTable /> },
     { title: "Reservations", icon: <FaCalendarAlt /> },
     { title: "Customer", icon: <FaUsers /> },
-    { title: "Reports", icon: <FaChartBar /> },
-    { title: "Settings", icon: <FaCog /> },
-
   ];
 
   return(

@@ -1,28 +1,48 @@
-import React, { useState } from "react";
-import Navbar from "./Navbar";
-import Dashboard from "./Dashboard";
-import ReservationsTable from "./ReservationsTable";
-import TableGrid from "./TableGrid";
+import React, { useEffect, useState } from "react";
+import { FaHome, FaCalendarAlt, FaUtensils, FaUsers, FaChartBar, FaCog, FaUserCircle, FaSearch, FaClipboardList, FaTable, FaSignOutAlt } from "react-icons/fa";
 import "./host.css";
 
 function Host() {
-  const [page, setPage] = useState("dashboard");
+ const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const renderPage = () => {
-    switch (page) {
-      case "reservations":
-        return <ReservationsTable />;
-      case "tables":
-        return <TableGrid />;
-      default:
-        return <Dashboard onNavigate={setPage} />;
-    }
-  };
+ const gridItems = [
+  { title: "Reservations", icon: <FaCalendarAlt /> },
+  { title: "Tables", icon: <FaTable /> },
+  { title: "Customers", icon: <FaUsers /> },
+  { title: "Tasks", icon: <FaClipboardList /> },
+ ]
 
-  return (
-    <div className="host-layout">
-      <Navbar />
-      <div className="host-main">{renderPage()}</div>
+  return(
+    <div className="host-countiner">
+      {/* navbar */}
+      <nav className="host-navbar">
+        <h2 className="host-logo">Host Panel</h2>
+
+        <div className="host-search">
+          <input type="text" placeholder="Search..." />
+        </div>
+
+        <div className="host-profile" onClick={() => setDropdownOpen(!dropdownOpen)}>
+          <FaUserCircle className="profile-icon"/>
+
+          {dropdownOpen && (
+            <div className="dropdown-menu">
+              <p><FaCog/>Settings</p>
+              <p><FaSignOutAlt/>Logout</p>
+            </div>
+          )}
+        </div>
+      </nav>
+
+      {/* dashboard */}
+      <section className="host-dashboard">
+        {gridItems.map((item,index)=>(
+          <div className="dashboard-card" key={index}>
+            <div className="dashboard-icon">{item.icon}</div>
+            <h3>{item.title}</h3>
+          </div>
+        ))}
+      </section>
     </div>
   );
 }
