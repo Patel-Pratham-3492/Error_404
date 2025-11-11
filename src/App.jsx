@@ -13,8 +13,7 @@ import Waiter from './assets/components/waiter/waiter';
 import Owner from './assets/components/owner/owner';
 import LandingPage from './assets/components/landingPage/LandingPage';
 import Chefs from './assets/components/chefs/chefs';
-// import SignupManager from "./assets/components/signupPage/signup-manager";
-// import SignupStaff from "./assets/components/signupPage/signup-staff";
+
 
 function App() {
   return (

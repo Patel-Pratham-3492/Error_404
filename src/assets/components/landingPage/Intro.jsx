@@ -17,7 +17,7 @@ const Intro = () => {
 
       <div className="intro-buttons mt-4">
          <a href="/login" className="btn btn-order me-3">Login</a>
-          <a href="/login" className="btn btn-book">Signup</a>
+          <a href="/signup" className="btn btn-book">Signup</a>
       </div>
     </section>
   );

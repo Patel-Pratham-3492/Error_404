@@ -47,7 +47,14 @@
   color: #f8f9fa;
   margin-top: 1rem;
 }
-
+.intro-buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
 .intro-buttons .btn {
   padding: 0.75rem 1.75rem;
   font-weight: 600;
@@ -72,8 +79,8 @@
 
 /* ✨ White "Book a Table" button with gold border */
 .btn-book {
-  background-color: transparent;
-  color: #ffd166;
+  background-color: #ffd166;
+  color: #cb1010;
   border: 2px solid #ffd166;
 }
 

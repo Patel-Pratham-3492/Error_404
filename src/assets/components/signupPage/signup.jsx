@@ -1,41 +1,48 @@
-import React from "react";
 import "./signup.css"
 
-function Signup() {
-  return (
-    <section className="signup-page">
-      <div className="signup-overlay"></div>
-      <div className="signup-box guest glass">
-        <h2>Create Your Account</h2>
-        <p className="subtitle">Join us and start managing your restaurant experience</p>
+const Signup = () => {
+  return(
+  <div className="signup-page">
+    <div className="signup-box">
+      <h2>Signup</h2>
 
-        <form>
-          <div className="form-group">
-            <label>Full Name</label>
-            <input type="text" placeholder="Enter your name" required />
-          </div>
+      <form>
+        {/* role assign  */}
+        <div className="form-group">
+          <label htmlFor="role">Select Role</label>
+          <select id="role" required>
+            <option value="">--Select Role--</option>
+            <option value="manager">Manager</option>
+            <option value="host">Host</option>
+            <option value="waiter">Waiter</option>
+            <option value="chef">Chef</option>
+          </select>
+        </div>
 
-          <div className="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="Enter your email" required />
-          </div>
+        <div className="form-group">
+          <label htmlFor="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your full name" required />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" required />
+        </div>      
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password" placeholder="Create a password" required />
+        </div>      
+        <div className="form-group">
+          <label htmlFor="confirmpassword">Confirm Password</label>
+          <input type="password" id="confirmpassword" placeholder="Confirm your password" required />
+        </div>      
+        <button type="submit">Sign Up</button>
 
-          <div className="form-group">
-            <label>Password</label>
-            <input type="password" placeholder="Enter password" required />
-          </div>
-
-          <div className="form-group">
-            <label>Confirm Password</label>
-            <input type="password" placeholder="confirm password" required />
-          </div>
-
-          <button type="submit" className="btn-red">Sign Up</button>
-          <p className="login-link">Already have an account? <a href="/login">Login</a></p>
-        </form>
-      </div>
-    </section>
-  );
+        <div className="login-link">
+          Already have an account? <a href="/login">Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+);
 }
-
 export default Signup;
