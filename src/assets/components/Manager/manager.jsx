@@ -1,24 +1,32 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { FaUserCircle, FaCog, FaSignOutAlt,FaChartBar, FaUsers, FaCalendarAlt,FaTable, FaClipboardList } from "react-icons/fa";
 import "./manager.css";
 
 function Manager() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [activePopup, setActivePopup] = useState(null);
+
+  // close dropdown when click outside
+  useEffect (() =>{
+  const handleClickOutside = () => setDropdownOpen(false);
+  document.addEventListener("click", handleClickOutside);
+  return () => document.removeEventListener("click", handleClickOutside);
+},[]);
 
   const gridItems = [
-    {title: "Reservations" , icon: <FaCalendarAlt />},
-    {title: "Tables" , icon: <FaTable />},
-    {title: "Staff" , icon: <FaUsers />},
-    {title: "Reports" , icon: <FaChartBar />},
+    {title: "Reservations" , icon: <FaCalendarAlt />, desc: "Manage restaurant"},
+    {title: "Tables" , icon: <FaTable />, desc: "View and assign Tables"},
+    {title: "Staff" , icon: <FaUsers />, desc: "Manage Staff"},
+    {title: "Reports" , icon: <FaChartBar />, desc: "View Reports"},
     // {title: "Settings" , icon: <FaCog />},
 
   ];
 
   return(
-    <div className="manager-countiner">
+    <div className="manager-container">
       {/* Navbar */}
       <nav className="manager-navbar">
-        <div className="navbar-lest">
+        <div className="navbar-left">
           <h2 className="manager-logo">Manager Panel</h2>
         </div>
 
@@ -27,7 +35,12 @@ function Manager() {
         </div>
 
         <div className="navbar-right">
-          <div className="profile-countiner" onClick={() => setDropdownOpen(!dropdownOpen)}>
+          <div
+            className="profile-container"
+            onClick={(e) => {
+              e.stopPropagation();
+              setDropdownOpen((prev) => !prev); 
+            }}> 
             <FaUserCircle className="profile-icon"/>
             {dropdownOpen && (
               <div className="dropdown-menu">
@@ -42,9 +55,18 @@ function Manager() {
       {/* Dashboard Start */}
       <main className="manager-main">
         <section className="dashboard-grid">
-          {gridItems.map((item, index)=> (
-            <div className="grid-card" key={index} style={{borderTop: `5px solid${item.color}`}}>
-              <div className="grid0icon" style={{color: item.color}}>
+          {gridItems.map((item, index) => (
+            // onClick to open popup + add space after 'solid'
+            <div
+              className="grid-card"
+              key={index}
+              onClick={() => setActivePopup(item)} //Makes popup open
+              style={{ borderTop: `5px solid ${item.color || "#ff4d4d"}` }}
+            >
+              <div
+                className="grid-icon"
+                style={{ color: item.color || "#ff4d4d" }}
+              >
                 {item.icon}
               </div>
               <h3>{item.title}</h3>
@@ -52,8 +74,29 @@ function Manager() {
           ))}
         </section>
       </main>
+
+      {/* Popup Effect */}
+      {activePopup && (
+        <div
+          className="popup-overlay"
+          onClick={() => setActivePopup(null)}
+        >
+          <div
+            className="popup-box"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2>{activePopup.title}</h2>
+            <p>{activePopup.desc}</p>
+            <button
+              className="popup-btn"
+              onClick={() => setActivePopup(null)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
-
 }
 export default Manager;

@@ -26,8 +26,7 @@ function Host() {
  const gridItems = [
   { title: "Reservations", icon: <FaCalendarAlt />, desc: "Manage bookings" },
   { title: "Tables", icon: <FaTable /> , desc: "Show The Tables"},
-  { title: "Customers", icon: <FaUsers /> , desc: "View The Customer"},
-  { title: "Tasks", icon: <FaClipboardList /> , desc: "Watch your Panding Tasks"},
+  { title: "Create Resevations", icon: <FaCalendarAlt /> , desc: "Create New Resvertaion"},
  ]
 
   return(
