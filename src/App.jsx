@@ -12,8 +12,8 @@ import Signup from "./assets/components/signupPage/signup";
 import Waiter from './assets/components/waiter/waiter';
 import Owner from './assets/components/owner/owner';
 import LandingPage from './assets/components/landingPage/LandingPage';
-import Chefs from './assets/components/chefs/chefs';
-
+import Chef from './assets/components/chef/chef';
+import Admin from './assets/components/admin/admin';
 
 function App() {
   return (
@@ -27,7 +27,9 @@ function App() {
         <Route path="/customerdash" element={<Customerdash />} />
         <Route path="/waiter" element={<Waiter />} />
         <Route path="/owner" element={<Owner />} />
-        <Route path="/chefs" element={<Chefs />} />
+        <Route path="/chef" element={<Chef />} />
+        <Route path="/admin" element={<Admin />} />
+
                 
       </Routes>
     </Router>

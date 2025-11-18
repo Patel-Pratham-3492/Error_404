@@ -1,208 +1,246 @@
-/* main countiner */
-.host-countiner{
+/* ----------------------------------------------------
+   MAIN PAGE CONTAINER (fixed spelling: host-continer)
+---------------------------------------------------- */
+.host-continer {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: #f8f9fa;
-  font-family: "Poopins", sans-serif;
+  background: #f4f4f4;
+  font-family: "Poppins", sans-serif;
 }
 
-/*NAVBAR */
-.host-navbar{
+/* ----------------------------------------------------
+   NAVBAR
+---------------------------------------------------- */
+.host-navbar {
+  background: #fff;
+  padding: 14px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ffffff;
-  padding: 12px 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.host-logo{
-  font-weight: 700;
-  color: #212529;
+.host-logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
 }
 
-/* search bar */
-.host-search input{
-  width: 300px;
-  padding: 10px 14px;
-  border-radius: 25px;
+/* Search box */
+.host-search input {
+  padding: 8px 14px;
+  width: 220px;
+  border-radius: 6px;
   border: 1px solid #ccc;
   outline: none;
-  background: #f1f3f5;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
+  font-size: 14px;
 }
 
-.host-search input:focus{
-  border-color: #ff4d4d;
-  background: #fff;
-}
-
-/* host profile  */
-.host-profile{
+/* Profile dropdown */
+.host-profile {
   position: relative;
+}
+
+.profile-icon {
+  font-size: 32px;
   cursor: pointer;
 }
-.profile-icon{
-  font-size: 30px;
-  color: #343a40;
-  transition: color 0.3s ease;
-}
-.profile-icon:hover{
-  color:#ff4d4d;
 
-}
-
-.dropdown-menu{
+.dropdown-menu {
   position: absolute;
-  right: 0;
   top: 45px;
-  background: #ffffff;
-  border: 1px solid #dee2e6;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  width: 160px;
-  padding: 8px;
+  right: 0;
+  background: #fff;
+  width: 150px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  padding: 10px;
   z-index: 10;
 }
 
-.dropdown-menu p{
-  padding: 8px 10px;
+.dropdown-menu p {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 15px;
   display: flex;
-  align-items: center;
   gap: 8px;
-  color: #495057;
-  transition: background 0.2s ease;
+  align-items: center;
 }
 
-.dropdown-menu p:hover{
-  background: #ffe3e3;
+.dropdown-menu p:hover {
+  background: #f1f1f1;
 }
 
-
-/* dashboard card */
-.host-dashboard{
+/* ----------------------------------------------------
+   DASHBOARD CARDS
+---------------------------------------------------- */
+.host-dashboard {
+  padding: 30px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
-  padding: 40px;
+  gap: 20px;
 }
-.dashboard-card{
-  background: #ffffff;
-  border-radius: 16px;
+
+.dashboard-card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 14px;
   text-align: center;
-  padding: 30px 20px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
   cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.dashboard-card:hover{
-  transform: translateY(-6px);
-  box-shadow: 0 8px 25px rgba(255, 77, 77, 0.3);
+.dashboard-card:hover {
+  transform: translateY(-4px);
 }
 
-/* Icons */
-.dashboard-icon{
+.dashboard-icon {
   font-size: 40px;
-  color: #ff4d4d;
   margin-bottom: 10px;
+  color: #444;
 }
 
-.dashboard-card h3{
-  margin-top: 8px;
-  color: #212529;
-  font-weight: 600;
-}
-
-/* popup model */
-.popup-overlay{
+/* ----------------------------------------------------
+   POPUP OVERLAY
+---------------------------------------------------- */
+.popup-overlay {
   position: fixed;
+  z-index: 999;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0,0,0,0.45);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
-  animation: fadeIn 0.4s ease;
 }
 
-.popup-box{
-  width: 60vw;
-  height: 60vh;
-  max-width: 900px;
-  max-height: 700px;
-  background: rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 24px;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-  padding: 40px 50px;
+/* ----------------------------------------------------
+   POPUP BOX (increased size ✔)
+---------------------------------------------------- */
+.popup-box {
+  background: #fff;
+  width: 550px;          /* increased */
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ----------------------------------------------------
+   POPUP HEADER
+---------------------------------------------------- */
+.popup-header {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  animation: popIn 0.4s ease;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 12px;
+}
+
+.popup-header-text h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.popup-header-text p {
+  margin: 3px 0 0;
+  color: #777;
+  font-size: 14px;
+}
+
+.popup-close-btn {
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.popup-close-btn:hover {
+  background: #555;
+}
+
+/* ----------------------------------------------------
+   POPUP CONTENT
+---------------------------------------------------- */
+.popup-content {
+  margin-top: 10px;
+}
+
+/* ----------------------------------------------------
+   TABLE POPUP TITLE
+---------------------------------------------------- */
+.popup-title {
+  font-size: 22px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+/* ----------------------------------------------------
+   TABLE GRID (3–4 per row ✔)
+---------------------------------------------------- */
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* FIXED */
+  gap: 20px;
+}
+
+/* ----------------------------------------------------
+   TABLE BOX
+---------------------------------------------------- */
+.table-box {
+  background: #fff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: 0.3s;
+  border-left: 6px solid #ccc;
+}
+
+.table-box:hover {
+  transform: scale(1.03);
+}
+
+.table-id {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.table-capacity {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+/* ----------------------------------------------------
+   STATUS BADGES
+---------------------------------------------------- */
+.table-status {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
   color: #fff;
 }
 
-.popup-box h2{
-  color: #ffffff;
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.popup-box p{
-  color: #555;
-  margin-bottom: 20px;
-  font-size: 1.1rem;
-}
-
-.popup-btn{
-  background: linear-gradient(135deg, #ff4d4d, #ff7676);
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-.popup-close-btn{
-  position: absolute;
-  top: 16px;
-  right: 24px;
-  background: #ff4d4d;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.popup-close-btn:hover{
-  color: #ff2d2d;
-}
-.popup-btn:hover{
-  background: linear-gradient(135deg, #ff2d2d, #ff5858);
-  transform: scale(1.05);
-}
-
-/* for the animation */
-@keyframes fadeIn{
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes popIn{
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
+/* Status Colors */
+.status-available { background: #28a745; }
+.status-occupied  { background: #dc3545; }
+.status-reserved  { background: #ffc107; color: #000; }
+.status-cleaning  { background: #17a2b8; }
