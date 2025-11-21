@@ -1,246 +1,624 @@
-/* ----------------------------------------------------
-   MAIN PAGE CONTAINER (fixed spelling: host-continer)
----------------------------------------------------- */
-.host-continer {
+/* host.css */
+
+/* Section Wrapper as div */
+.host-section {
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  background-color: #272727; /* slightly different from navbar and main */
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background: #f4f4f4;
-  font-family: "Poppins", sans-serif;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 0;
 }
 
-/* ----------------------------------------------------
-   NAVBAR
----------------------------------------------------- */
+/* Navbar */
 .host-navbar {
-  background: #fff;
-  padding: 14px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.host-logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-}
-
-/* Search box */
-.host-search input {
-  padding: 8px 14px;
-  width: 220px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  outline: none;
-  font-size: 14px;
-}
-
-/* Profile dropdown */
-.host-profile {
+  padding: 1rem 2rem;
+  background: linear-gradient(180deg, #1d1d1d 0%, #2b2b2b 100%);
+  color: #f1faee;
   position: relative;
-}
-
-.profile-icon {
-  font-size: 32px;
-  cursor: pointer;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 45px;
-  right: 0;
-  background: #fff;
-  width: 150px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  border-radius: 8px;
-  padding: 10px;
   z-index: 10;
 }
 
-.dropdown-menu p {
-  padding: 10px;
+/* profile style */
+.host-profile {
+  position: relative;
   cursor: pointer;
-  font-size: 15px;
+}
+
+/* Dropdown menu */
+.host-profile-menu {
+  position: absolute;
+  top: 40px; /* below the icon */
+  right: 0;
+  background-color: #2b2b2b;
+  border: 1px solid #ffd166;
+  border-radius: 6px;
+  overflow: hidden;
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  min-width: 150px;
+  z-index: 20;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.host-profile .host-profile-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.host-logo {
+  font-size: 2rem;
+  font-weight: 500;
+  font-family: "Playfair Display", serif;
+  transition: transform 0.3s ease;
+  display: inline-block; /* keep spans inline */
+}
+
+.host-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Separate colors */
+.host-logo-welcome {
+  color: #e63946; /* Grill Genius red */
+}
+
+.host-logo-name {
+  color: #ffffff; /* White color */
+}
+
+
+/* Buttons inside dropdown */
+.host-profile-btn {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  color: #f1faee;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.host-profile-btn:hover {
+  background-color: #ffd166;
+  color: #1d1d1d;
+}
+
+/* Logout button in red */
+.host-logout-btn {
+  color: #e63946;
+  font-weight: 700;
+}
+.host-logout-btn:hover {
+  background-color: #e63946;
+  color: #f1faee;
+}
+
+/* Main Section */
+.host-main {
+  padding: 2rem; /* space inside main section */
+  width: 90%;
+  max-width: 1200px;
+  min-height: 60vh;
+  background-color: #2b2b2b;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  border-radius: 8px;
+  border: 2px solid #ffd166; /* your gold border kept */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.host-main:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(-3px);
 }
 
-.dropdown-menu p:hover {
-  background: #f1f1f1;
+/* Options Row */
+.host-options-row {
+  display: flex;
+  width: 100%;
 }
 
-/* ----------------------------------------------------
-   DASHBOARD CARDS
----------------------------------------------------- */
-.host-dashboard {
-  padding: 30px;
+.host-option-btn {
+  flex: 1;
+  padding: 1rem 0;
+  background-color: #ffd166; /* gold */
+  color: #1d1d1d;
+  border: 2px solid #ffd166;
+  border-bottom: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.host-option-btn:hover {
+  background-color: #e6c166;
+  transform: translateY(-2px);
+}
+
+.host-option-btn.active {
+  background-color: #1d1d1d; /* active top matches rectangle */
+  color: #ffd166;
+  border: 2px solid #ffd166;
+  border-bottom: 2px solid #000000; /* match rectangle bottom */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Content Rectangle */
+.host-content-rectangle {
+  width: 100%;
+  min-height: 60vh;
+  border-left: 2px solid #ffd166;
+  border-right: 2px solid #ffd166;
+  border-bottom: 2px solid #ffd166;
+  background: linear-gradient(to bottom, #1d1d1d 0%, #000000 100%);
+  color: #f1faee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  margin-top: -2px; /* overlap rectangle with button border */
+  border-radius: 0 0 8px 8px;
+
+  /* subtle fade-in animation */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.host-content-rectangle.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================= */
+/*  ⭐ TABLE GRID (3x3)          */
+/* ============================= */
+
+.host-table-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease;
 }
 
-.dashboard-card {
-  background: #fff;
-  padding: 24px;
-  border-radius: 14px;
+/* Table Block - Default (Open / Gold) */
+.host-table-block {
+  background-color: #ffd166;
+  border: 2px solid #e6c05f;
+  color: #1d1d1d;
+  padding: 1.5rem;
+  border-radius: 8px;
   text-align: center;
   cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.dashboard-card:hover {
-  transform: translateY(-4px);
+.host-table-block:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 
-.dashboard-icon {
-  font-size: 40px;
-  margin-bottom: 10px;
-  color: #444;
+/* Table Block - Occupied (Red) */
+.host-table-block.occupied {
+  background-color: #e63946;
+  border-color: #c02530;
+  color: #ffffff;
 }
 
-/* ----------------------------------------------------
-   POPUP OVERLAY
----------------------------------------------------- */
-.popup-overlay {
+/* Table Text */
+.host-table-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.host-table-capacity {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* ============================= */
+/*  ⭐ POPUP OVERLAY             */
+/* ============================= */
+
+.host-popup-overlay {
   position: fixed;
-  z-index: 999;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.6); /* transparent dark */
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.3s ease;
+  z-index: 999;
 }
 
-/* ----------------------------------------------------
-   POPUP BOX (increased size ✔)
----------------------------------------------------- */
-.popup-box {
-  background: #fff;
-  width: 550px;          /* increased */
-  max-height: 90vh;
-  overflow-y: auto;
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-  animation: fadeIn 0.2s ease-out;
+/* Popup Box */
+.host-popup {
+  width: 350px;
+  background: rgba(30, 30, 30, 0.85);
+  border: 2px solid #ffd166;
+  border-radius: 10px;
+  padding: 2rem;
+  position: relative;
+  animation: scaleIn 0.3s ease;
 }
 
-/* Animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-/* ----------------------------------------------------
-   POPUP HEADER
----------------------------------------------------- */
-.popup-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 12px;
-}
-
-.popup-header-text h2 {
-  margin: 0;
-  font-size: 24px;
-}
-
-.popup-header-text p {
-  margin: 3px 0 0;
-  color: #777;
-  font-size: 14px;
-}
-
-.popup-close-btn {
-  background: #333;
-  color: white;
-  padding: 8px 12px;
+/* Close Button */
+.host-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
   border: none;
-  border-radius: 6px;
+  color: #ffd166;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
-.popup-close-btn:hover {
-  background: #555;
+/* Popup Title + Subtext */
+.host-popup-title {
+  color: #ffd166;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 5px;
 }
 
-/* ----------------------------------------------------
-   POPUP CONTENT
----------------------------------------------------- */
-.popup-content {
-  margin-top: 10px;
+.host-popup-sub {
+  color: #f1faee;
+  margin-bottom: 1rem;
 }
 
-/* ----------------------------------------------------
-   TABLE POPUP TITLE
----------------------------------------------------- */
-.popup-title {
-  font-size: 22px;
-  margin-bottom: 16px;
-  font-weight: 600;
-}
-
-/* ----------------------------------------------------
-   TABLE GRID (3–4 per row ✔)
----------------------------------------------------- */
-.tables-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* FIXED */
-  gap: 20px;
-}
-
-/* ----------------------------------------------------
-   TABLE BOX
----------------------------------------------------- */
-.table-box {
-  background: #fff;
-  padding: 18px;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  transition: 0.3s;
-  border-left: 6px solid #ccc;
-}
-
-.table-box:hover {
-  transform: scale(1.03);
-}
-
-.table-id {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.table-capacity {
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 12px;
-}
-
-/* ----------------------------------------------------
-   STATUS BADGES
----------------------------------------------------- */
-.table-status {
-  display: inline-block;
-  padding: 6px 10px;
+/* Popup Input Fields */
+.host-popup-input {
+  width: 100%;
+  padding: 0.7rem;
+  background: #1d1d1d;
+  color: #fff;
+  border: 1px solid #ffd166;
   border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+/* Button - Mark Occupied (Red) */
+.host-popup-btn-red {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #e63946;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.host-popup-btn-red:hover {
+  background-color: #c62839;
+}
+
+/* Button - Mark Open (Green) */
+.host-popup-btn-green {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.host-popup-btn-green:hover {
+  background-color: #27ae60;
+}
+
+.host-table-customer {
+  margin-top: 6px;
   font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+
+
+/* ============================= */
+/*  ⭐ ANIMATIONS                */
+/* ============================= */
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.85); opacity: 0 }
+  to { transform: scale(1); opacity: 1 }
+}
+
+/* ============================= */
+/* ⭐ CREATE RESERVATION FORM    */
+/* ============================= */
+
+.host-reservation-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.host-res-form-box {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  gap: 1rem;
+  animation: fadeIn 0.4s ease;
+}
+
+
+.host-res-btn-green {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: background 0.3s ease;
+}
+
+.host-res-btn-green:hover {
+  background-color: #27ae60;
+}
+
+/* ============================= */
+/* ⭐ POPUP CONFIRMATION         */
+/* ============================= */
+
+/* POPUP OVERLAY */
+.host-res-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+}
+
+/* POPUP BOX */
+.host-res-popup-box {
+  background: rgba(20,20,20,0.85);
+  padding: 2rem;
+  width: 350px;
+  text-align: center;
+  border: 2px solid #ffd166;
+  border-radius: 10px;
+}
+
+/* LOADER */
+.host-res-loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ffd166;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  margin: auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.host-res-loader-text {
+  color: #ffd166;
+  margin-top: 1rem;
+}
+
+/* SUCCESS */
+.host-res-checkmark {
+  font-size: 3rem;
+  color: #1db954;
+}
+
+.host-res-success-text {
+  color: #1db954;
+  margin-top: 0.5rem;
+}
+
+/* ERROR */
+.host-res-error-x {
+  font-size: 3rem;
+  color: #e63946;
+}
+
+.host-res-error-text {
+  color: #e63946;
+  margin-top: 0.5rem;
+}
+/* Responsive Wrapper */
+.res-table-wrapper {
+  width: 89%;
+  overflow-x: auto;   /* enables horizontal scroll on small screens */
+  -webkit-overflow-scrolling: touch;
+  margin-top: 0px;
+  border: 1px solid #FFD700; /* gold border around table container */
+  border-radius: 6px;
+}
+
+/* Table Base */
+.res-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px; /* prevents shrinking too much */
+  color: white;
+}
+
+/* Table Cells */
+.res-table th,
+.res-table td {
+  padding: 12px;
+  border-bottom: 1px solid #FFD700;
+  color: white;
+  text-align: left;
+  white-space: nowrap; /* prevents wrapping */
+}
+
+/* Table Header Strong Golden Line */
+.res-table th {
+  border-bottom: 2px solid #FFD700;
+  background: #111;
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  border: 1px solid #FFD700;
+  text-transform: capitalize;
+}
+
+.status-pending { background: #ffd166; color: black; }
+.status-arrived { background: #118ab2; color: white; }
+.status-completed { background: #1db954; color: white; }
+.status-cancelled { background: #e63946; color: white; }
+
+/* Mobile Style */
+@media (max-width: 500px) {
+  .res-table td,
+  .res-table th {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .status-badge {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+}
+
+
+/* -------------------- POPUP OVERLAY -------------------- */
+.status-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+/* -------------------- POPUP BOX -------------------- */
+.status-popup-box {
+  background: #111;
+  padding: 25px 30px;
+  border-radius: 14px;
+  width: 340px;
+  color: white;
+  border: 2px solid #ffd166;  /* gold border */
+  position: relative;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.status-popup-box h3 {
+  margin: 0 0 10px 0;
+  font-size: 22px;
   font-weight: 600;
+  color: #ffd166;   /* gold */
+  text-align: center;
+}
+
+.status-popup-box p {
+  font-size: 15px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+/* -------------------- CLOSE BUTTON -------------------- */
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #ffd166;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.close-btn:hover {
   color: #fff;
 }
 
-/* Status Colors */
-.status-available { background: #28a745; }
-.status-occupied  { background: #dc3545; }
-.status-reserved  { background: #ffc107; color: #000; }
-.status-cleaning  { background: #17a2b8; }
+/* -------------------- SELECT DROPDOWN -------------------- */
+.status-select {
+  width: 100%;
+  margin: 15px 0;
+  padding: 12px;
+  background: #222;
+  border: 1.5px solid #ffd166;
+  border-radius: 8px;
+  color: white;
+  outline: none;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.status-select:hover {
+  border-color: #fff;
+}
+
+/* -------------------- UPDATE BUTTON -------------------- */
+.confirm-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: #1db954; /* Green */
+  border: 1px solid #0f7a36;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-weight: 600;
+}
+
+.confirm-btn:hover {
+  background: #17a548;
+  transform: translateY(-2px);
+}

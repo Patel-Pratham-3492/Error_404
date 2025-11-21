@@ -1,180 +1,487 @@
-import React, { useEffect, useState, useRef } from "react";
-import {
-  FaHome,
-  FaTimes,
-  FaCalendarAlt,
-  FaUtensils,
-  FaUsers,
-  FaChartBar,
-  FaCog,
-  FaUserCircle,
-  FaSearch,
-  FaClipboardList,
-  FaTable,
-  FaSignOutAlt
-} from "react-icons/fa";
+// HostDashboard.jsx
+import { useState, useEffect } from "react";
+import { FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "./host.css";
-import { div, table } from "framer-motion/client";
 
-function Host() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [activePopup, setActivePopup] = useState(null);
+export default function Host() {
+  const [activeTab, setActiveTab] = useState("tables");
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-  const dropdownRef = useRef();
-
-  useEffect(() => {
-    const handleClickOutside = (e) => { 
-    if (dropdownRef.current && !dropdownRef.current.contains(e.target)){
-      setDropdownOpen(false);
-    }};
+  const user = JSON.parse(localStorage.getItem("user"));
+  const hostName = user?.name || "Host";
+  const navigate = useNavigate();
 
 
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+  // Reservation form state
+  const [resName, setResName] = useState("");
+  const [resEmail, setResEmail] = useState("");
+  const [resPeople, setResPeople] = useState("");
+  const [resDate, setResDate] = useState("");
 
-  const gridItems = [
-    { title: "Reservations", icon: <FaCalendarAlt />, desc: "Manage bookings", popupType: "reservations" },
-    { title: "Tables", icon: <FaTable />, desc: "Show The Tables", popupType: "tables" },
-    { title: "Create Resevations", icon: <FaCalendarAlt />, desc: "Create New Resvertaion", popupType: "create" },
-  ]
+  const [resPopup, setResPopup] = useState(false);
+  const [resDone, setResDone] = useState(false);
+  const [resError, setResError] = useState(false);
 
+  // Reservation status state
+  const [reservations, setReservations] = useState([]);
+  const [statusPopup, setStatusPopup] = useState(false);
+  const [selectedRes, setSelectedRes] = useState(null);
+  const [newStatus, setNewStatus] = useState("pending");
+  const [loading, setLoading] = useState(true);
 
-  // 8 tables with different capaciy
-  const tables = [
-    { id:1, capacity: 2, status: "Available" },
-    { id:2, capacity: 4, status: "Available" },
-    { id:3, capacity: 6, status: "Occupied" },
-    { id:4, capacity: 4, status: "Available" },
-    { id:5, capacity: 8, status: "Reserved" },
-    { id:6, capacity: 2, status: "Cleaning" },
-    { id:7, capacity: 4, status: "Occupied" },
-    { id:8, capacity: 6, status: "Available" },
+  // Tables state
+  const [tables, setTables] = useState([]);
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [selectedTable, setSelectedTable] = useState(null);
+  const [customerName, setCustomerName] = useState("");
+  const [customerEmail, setCustomerEmail] = useState("");
 
-  ];
-
-  // helper to map status 
-
-  const statusClass = (status) => ({
-      Available: "status-available",
-      Occupied: "status-occupied",
-      Reserved: "status-reserved",
-      Cleaning: "status-cleaning",
-    }[status]);
-
-  const renderPopupContent = () => {
-    if (!activePopup) return null;
-    switch (activePopup.popupType){
-      case "tables":
-        return(
-          <div className="tables-container">
-            <h2 className="popup-title">Tables</h2>
-          
-          <div className="tables-grid">
-            {tables.map((table) => (
-              <div className="table-box" key={table.id}>
-                <div className="table-id">Table {table.id}</div>
-                <div className="table-capacity">Capacity: {table.capacity}</div>
-                <div className={`table-status ${statusClass(table.status)}`}>
-                  {table.status}
-                  </div>
-              </div>
-            ))}
-          </div>
-          </div>
-        );
-        case "reservations":
-          return(
-            <div>
-              <h2>Reservations</h2>
-            </div>
-          );
-
-          case "create":
-            return(
-              <div>
-                <h2>Create Reservation</h2>
-              </div>
-            );
-
-            default:
-              return(
-              <div>
-                <h2>{activePopup.title}</h2>
-              </div>
-              );
+  // ----------------- FETCH DATA -----------------
+  const fetchTables = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/table");
+      const data = await res.json();
+      if (data.success) setTables(data.tables);
+      else console.error("Failed to fetch tables:", data.message);
+    } catch (err) {
+      console.error("Error fetching tables:", err);
     }
   };
 
+  useEffect(() => {
+    fetchTables();
+  }, []);
+
+  useEffect(() => {
+    if (activeTab === "check") fetchTodayReservations();
+  }, [activeTab]);
+
+  const fetchTodayReservations = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("http://localhost:5000/api/reservations/today");
+      const data = await res.json();
+      if (data.success) setReservations(data.reservations);
+    } catch (err) {
+      console.error("Error fetching reservations:", err);
+    }
+    setLoading(false);
+  };
+
+  // ----------------- RESERVATION FORM -----------------
+  const handleReservationSubmit = async (e) => {
+    e.preventDefault();
+    if (!resName || !resEmail || !resPeople || !resDate) return;
+
+    setResPopup(true);
+    setResDone(false);
+    setResError(false);
+
+    try {
+      const res = await fetch("http://localhost:5000/api/reservations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: resName,
+          email: resEmail,
+          people: resPeople,
+          date: resDate,
+          status: "pending",
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) {
+        setResError(true);
+        return setTimeout(() => setResPopup(false), 10000);
+      }
+
+      setResDone(true);
+      setTimeout(() => {
+        setResPopup(false);
+        setResName("");
+        setResEmail("");
+        setResPeople("");
+        setResDate("");
+        setResDone(false);
+        if (activeTab === "check") fetchTodayReservations();
+      }, 3000);
+    } catch (err) {
+      console.error(err);
+      setResError(true);
+      setTimeout(() => setResPopup(false), 10000);
+    }
+  };
+
+  // ----------------- STATUS UPDATE -----------------
+  const handleStatusClick = (res) => {
+    setSelectedRes(res);
+    setNewStatus(res.status);
+    setStatusPopup(true);
+  };
+
+  const updateStatus = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/reservations/update-status/${selectedRes._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: newStatus }),
+        }
+      );
+      const data = await res.json();
+      if (data.success) {
+        setStatusPopup(false);
+        fetchTodayReservations();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // ----------------- TABLE MANAGEMENT -----------------
+  const openPopup = (table) => {
+    setSelectedTable(table);
+    setCustomerName(table.customerName || "");
+    setCustomerEmail(table.customerEmail || "");
+    setPopupOpen(true);
+  };
+
+  const closePopup = () => setPopupOpen(false);
+
+  // Mark a table as occupied
+  const markOccupied = async (table) => {
+  try {
+    const res = await fetch(
+      `http://localhost:5000/api/table/occupy/${table._id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customerName: customerName,
+          customerEmail: customerEmail,
+        }),
+      }
+    );
+
+    const data = await res.json();
+    if (data.success) {
+      console.log("Table marked as occupied!");
+      setPopupOpen(false);
+      setSelectedTable(null);
+      setCustomerName("");
+      setCustomerEmail("");
+
+      // Update local tables state to reflect the color immediately
+      setTables((prev) =>
+        prev.map((t) =>
+          t._id === table._id
+            ? { ...t, status: "occupied", customerName, customerEmail }
+            : t
+        )
+      );
+    } else {
+      console.error("Failed to mark occupied:", data.message);
+    }
+  } catch (err) {
+    console.error("Error marking table occupied:", err);
+  }
+};
+
+  // Mark a table as open
+  const markOpened = async (table) => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/table/open/${table._id}`,
+        { method: "PUT" }
+      );
+      const data = await res.json();
+      if (data.success) {
+        console.log("Table marked as open!");
+        setPopupOpen(false);
+        setSelectedTable(null);
+        fetchTables();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // ----------------- FORMAT DATE -----------------
+  const formatDate = (d) => {
+    const y = d.substring(0, 4);
+    const m = d.substring(4, 6);
+    const da = d.substring(6, 8);
+    return `${da}-${m}-${y}`;
+  };
+
+  // ----------------- RENDER -----------------
   return (
-    <div className="host-continer">
-      {/* navbar */}
+    <div className="host-container">
+      {/* Navbar */}
       <nav className="host-navbar">
-        <h2 className="host-logo">Host Panel</h2>
-
-        <div className="host-search">
-          <input type="text" placeholder="Search..." />
+        <div className="host-logo">
+          <span className="host-logo-welcome">Welcome, </span>
+          <span className="host-logo-name">{hostName}</span>
         </div>
-
-        <div className="host-profile">
-          <FaUserCircle className="profile-icon"
-            onClick={(e) => {
-              e.stopPropagation();
-              setDropdownOpen((prev) => !prev);
-            }}
-          />
-
-          {dropdownOpen && (
-            <div className="dropdown-menu">
-              <p><FaCog />Settings</p>
-              <p><FaSignOutAlt />Logout</p>
+        <div
+          className="host-profile"
+          onClick={() => setShowProfileMenu(!showProfileMenu)}
+        >
+          <FaUserCircle size={30} color="#ffd166" />
+          {showProfileMenu && (
+            <div className="host-profile-menu">
+              <button className="host-profile-btn" onClick={() => {navigate("/setting");}}>Settings</button>
+              <button className="host-profile-btn host-logout-btn" onClick={() => { localStorage.removeItem("user"); navigate("/login");}}>Logout</button>
             </div>
           )}
         </div>
       </nav>
 
-      {/* dashboard */}
-      <section className="host-dashboard">
-        {gridItems.map((item, index) => (
-          <div className="dashboard-card"
-            key={item.title} onClick={() => setActivePopup(item)} >
-
-            <div className="dashboard-icon">{item.icon}</div>
-            <h3>{item.title}</h3>
+      {/* Main Section */}
+      <div className="host-section">
+        <div className="host-main">
+          {/* Tabs */}
+          <div className="host-options-row">
+            <button
+              className={`host-option-btn ${activeTab === "tables" ? "active" : ""}`}
+              onClick={() => setActiveTab("tables")}
+            >
+              Tables
+            </button>
+            <button
+              className={`host-option-btn ${activeTab === "check" ? "active" : ""}`}
+              onClick={() => setActiveTab("check")}
+            >
+              Check Reservations
+            </button>
+            <button
+              className={`host-option-btn ${activeTab === "create" ? "active" : ""}`}
+              onClick={() => setActiveTab("create")}
+            >
+              Create Reservation
+            </button>
           </div>
-        ))}
-      </section>
 
-      {/* popup function  */}
-      {activePopup && (
-        <div className="popup-overlay"
-          onClick={() => setActivePopup(null)}>
+          {/* Content */}
+          <div className={`host-content-rectangle show`}>
+            {/* -------- TABLE GRID -------- */}
+            {activeTab === "tables" && (
+              <div className="host-table-grid">
+                {tables.map((table) => (
+                  <div
+                    key={table._id}
+                    className={`host-table-block ${table.status}`} // occupied/open for coloring
+                    onClick={() => openPopup(table)}
+                  >
+                    <div className="host-table-title">{table.name}</div>
+                    <div className="host-table-capacity">{table.capacity} Seats</div>
+                    {table.status === "occupied" && (
+                      <div className="host-table-customer">{table.customerName}</div>
+                    )}
+                  </div>
+                ))}
 
-          <div className="popup-box" onClick={(e) => e.stopPropagation()}>
+                {/* Table Popup */}
+                {popupOpen && selectedTable && (
+                  <div className="host-popup-overlay" onClick={closePopup}>
+                    <div className="host-popup" onClick={(e) => e.stopPropagation()}>
+                      <button className="host-popup-close" onClick={closePopup}>
+                        ✕
+                      </button>
+                      <h2 className="host-popup-title">{selectedTable.name}</h2>
+                      <p className="host-popup-sub">Capacity: {selectedTable.capacity}</p>
 
-            {/* HEADER */}
-            <div className="popup-header">
-              <div className="popup-header-text">
-                <h2>{activePopup.title}</h2>
-                <p>{activePopup.desc}</p>
+                      {selectedTable.status === "occupied" ? (
+                        <>
+                          <p className="host-popup-sub" style={{ marginTop: "1rem" }}>
+                            This table is currently occupied.
+                          </p>
+                          <button
+                            className="host-popup-btn-green"
+                            onClick={() => markOpened(selectedTable)}
+                          >
+                            Mark as Open
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <input
+                            type="text"
+                            placeholder="Customer Name"
+                            value={customerName}
+                            onChange={(e) => setCustomerName(e.target.value)}
+                            className="host-popup-input"
+                            required
+                          />
+                          <input
+                            type="email"
+                            placeholder="Customer Email"
+                            value={customerEmail}
+                            onChange={(e) => setCustomerEmail(e.target.value)}
+                            className="host-popup-input"
+                            required
+                          />
+                          <button
+                            className="host-popup-btn-red"
+                            onClick={() => markOccupied(selectedTable)}
+                          >
+                            Mark as Occupied
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
+            )}
 
-              <button className="popup-close-btn" onClick={() => setActivePopup(null)}>
-                <FaTimes />
-              </button>
-            </div>
+            {/* -------- RESERVATION TABLE -------- */}
+            {activeTab === "check" && (
+              <div className="res-table-wrapper">
+                <table className="res-table">
+                  <thead>
+                    <tr>
+                      <th>Reservation ID</th>
+                      <th>Name</th>
+                      <th>People</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {reservations.map((r) => (
+                      <tr key={r._id}>
+                        <td>{r.reservationId}</td>
+                        <td>{r.name}</td>
+                        <td>{r.people}</td>
+                        <td>{formatDate(r.date)}</td>
+                        <td>
+                          <span
+                            className={`status-badge status-${r.status}`}
+                            onClick={() => handleStatusClick(r)}
+                          >
+                            {r.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
 
-            {/* CONTENT */}
-            <div className="popup-content">
-              {renderPopupContent()}
-            </div>
+                {/* Status Popup */}
+                {statusPopup && selectedRes && (
+                  <div
+                    className="status-popup-overlay"
+                    onClick={() => setStatusPopup(false)}
+                  >
+                    <div
+                      className="status-popup-box"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <button
+                        className="close-btn"
+                        onClick={() => setStatusPopup(false)}
+                      >
+                        ✕
+                      </button>
+                      <h3>Update Status</h3>
+                      <p>Reservation: {selectedRes.reservationId}</p>
+                      <select
+                        className="status-select"
+                        value={newStatus}
+                        onChange={(e) => setNewStatus(e.target.value)}
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="arrived">Arrived</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                      </select>
+                      <button className="confirm-btn" onClick={updateStatus}>
+                        Update Status
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
+            {/* -------- CREATE RESERVATION -------- */}
+            {activeTab === "create" && (
+              <div className="host-reservation-form">
+                <form
+                  onSubmit={handleReservationSubmit}
+                  className="host-res-form-box"
+                >
+                  <input
+                    type="text"
+                    placeholder="Customer Name"
+                    value={resName}
+                    onChange={(e) => setResName(e.target.value)}
+                    className="host-popup-input"
+                    required
+                  />
+                  <input
+                    type="email"
+                    placeholder="Customer Email"
+                    value={resEmail}
+                    onChange={(e) => setResEmail(e.target.value)}
+                    className="host-popup-input"
+                    required
+                  />
+                  <input
+                    type="number"
+                    placeholder="Number of People"
+                    min="1"
+                    value={resPeople}
+                    onChange={(e) => setResPeople(e.target.value)}
+                    className="host-popup-input"
+                    required
+                  />
+                  <input
+                    type="date"
+                    value={resDate}
+                    onChange={(e) => setResDate(e.target.value)}
+                    className="host-popup-input"
+                    required
+                  />
+                  <button type="submit" className="host-res-btn-green">
+                    Confirm Reservation
+                  </button>
+                </form>
+
+                {resPopup && (
+                  <div className="host-res-popup-overlay">
+                    <div className="host-res-popup-box">
+                      {!resDone && !resError && (
+                        <>
+                          <div className="host-res-loader"></div>
+                          <p className="host-res-loader-text">
+                            Processing reservation...
+                          </p>
+                        </>
+                      )}
+                      {resDone && !resError && (
+                        <>
+                          <div className="host-res-checkmark">✔</div>
+                          <p className="host-res-success-text">Done!</p>
+                        </>
+                      )}
+                      {resError && (
+                        <>
+                          <div className="host-res-error-x">✕</div>
+                          <p className="host-res-error-text">Please try again!</p>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-
         </div>
-      )}
+      </div>
     </div>
   );
 }
-
-export default Host;

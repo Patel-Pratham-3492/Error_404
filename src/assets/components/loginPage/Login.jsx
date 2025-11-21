@@ -13,7 +13,7 @@ function Login() {
 
     if (!email || !password) {
       setMessage("Email and password are required.");
-      setTimeout(() => setMessage(""), 6000); // Hide after 6 seconds
+      setTimeout(() => setMessage(""), 6000);
       return;
     }
 
@@ -27,13 +27,35 @@ function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        // Login success, navigate based on role
-        if (data.role === "customer") navigate("/customerdash");
-        else if (data.role === "host") navigate("/host");
-        else navigate("/"); // fallback
+        // Save user info in localStorage
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ name: data.name, role: data.role, email: data.email })
+        );
+
+        // Navigate based on role
+        switch (data.role) {
+          case "host":
+            navigate("/host");
+            break;
+          case "waiter":
+            navigate("/waiter");
+            break;
+          case "chef":
+            navigate("/chef");
+            break;
+          case "manager":
+            navigate("/manager");
+            break;
+          case "owner":
+            navigate("/owner");
+            break;
+          default:
+            navigate("/"); // fallback
+        }
       } else {
         setMessage(data.message || "Login failed.");
-        setTimeout(() => setMessage(""), 6000); // Hide after 6 seconds
+        setTimeout(() => setMessage(""), 6000);
       }
     } catch (error) {
       setMessage("Server error. Try again later.");
