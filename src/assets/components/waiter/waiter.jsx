@@ -1,58 +1,37 @@
-import React, {useState} from "react";
-import { FaUserCircle, FaCog, FaSignOutAlt, FaClipboardList, FaTable, FaCalendarAlt, FaChartBar,FaUsers } from "react-icons/fa";
-import "./waiter.css";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import RoleNavbar from "../roleNavbar/RoleNavbar";
+import "./waiter.css"
 
-function Waiter() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+export default function Waiter() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
-  const gridItems = [
-    { title: "Orders", icon: <FaClipboardList /> },
-    { title: "Tables", icon: <FaTable /> },
-    { title: "Reservations", icon: <FaCalendarAlt /> },
-    { title: "Customer", icon: <FaUsers /> },
-  ];
+  useEffect(() => {
+    // Check logged in
+    const isLoggedIn = sessionStorage.getItem("loggedIn");
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
 
-  return(
-    <div className="waiter-countiner">
-      {/* Navbar */}
-      <nav className="waiter-navbar">
-        <div className="navbar-left">
-          <h2 className="waiter-logo">Waiter Panel</h2>
-        </div>
+    // Fetch user
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
 
-        <div className="navbar-center">
-          <input type="text" placeholder="Search..." className="waiter-search" />
-        </div>
-        <div className="navbar-right">
-          <div className="profile-countiner" onClick={() => setDropdownOpen(!dropdownOpen)}>
-            <FaUserCircle className="profile-icon" />
-            {dropdownOpen &&(
-              <div className="dropdown-menu">
-                <p>
-                  <FaCog />Settings
-                </p>
-                <p>
-                  <FaSignOutAlt /> Logout
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      </nav>
-
-      {/* Dashboard */}
-      <section className="dashboard-grid">
-        {gridItems.map((item, index) => (
-          <div className="grid-card">
-            <div className="grid-icon">{item.icon}</div>
-            <h3>{item.title}</h3>
-          </div>
-        ))}
-      </section>
-
+  return (
+    <div>
+      {user && <RoleNavbar role={user.role} name={user.name} />}
+      <div style={{ padding: "20px" }}>
+        <h1>Waiter Dashboard</h1>
+        <p>Welcome, {user?.name}. Try to make customer happy</p>
+      </div>
     </div>
   );
+}
 
- }
-
-export default Waiter;

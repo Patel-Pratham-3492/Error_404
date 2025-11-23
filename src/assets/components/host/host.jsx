@@ -2,14 +2,12 @@
 import { useState, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import RoleNavbar from "../roleNavbar/RoleNavbar";
 import "./host.css";
 
 export default function Host() {
   const [activeTab, setActiveTab] = useState("tables");
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
-
-  const user = JSON.parse(localStorage.getItem("user"));
-  const hostName = user?.name || "Host";
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
 
@@ -48,6 +46,23 @@ export default function Host() {
       console.error("Error fetching tables:", err);
     }
   };
+
+ useEffect(() => {
+    // Check logged in
+    const isLoggedIn = sessionStorage.getItem("loggedIn");
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+
+    // Fetch user
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     fetchTables();
@@ -220,24 +235,7 @@ export default function Host() {
   return (
     <div className="host-container">
       {/* Navbar */}
-      <nav className="host-navbar">
-        <div className="host-logo">
-          <span className="host-logo-welcome">Welcome, </span>
-          <span className="host-logo-name">{hostName}</span>
-        </div>
-        <div
-          className="host-profile"
-          onClick={() => setShowProfileMenu(!showProfileMenu)}
-        >
-          <FaUserCircle size={30} color="#ffd166" />
-          {showProfileMenu && (
-            <div className="host-profile-menu">
-              <button className="host-profile-btn" onClick={() => {navigate("/setting");}}>Settings</button>
-              <button className="host-profile-btn host-logout-btn" onClick={() => { localStorage.removeItem("user"); navigate("/login");}}>Logout</button>
-            </div>
-          )}
-        </div>
-      </nav>
+      {user && <RoleNavbar role={user.role} name={user.name} />}
 
       {/* Main Section */}
       <div className="host-section">

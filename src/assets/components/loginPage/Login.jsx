@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 
@@ -33,6 +33,8 @@ function Login() {
           JSON.stringify({ name: data.name, role: data.role, email: data.email })
         );
 
+        sessionStorage.setItem("loggedIn", true);
+
         // Navigate based on role
         switch (data.role) {
           case "host":
@@ -49,6 +51,9 @@ function Login() {
             break;
           case "owner":
             navigate("/owner");
+            break;
+          case "admin":
+            navigate("/admin");
             break;
           default:
             navigate("/"); // fallback

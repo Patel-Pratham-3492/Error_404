@@ -1,102 +1,37 @@
-import React, {useEffect, useState} from "react";
-import { FaUserCircle, FaCog, FaSignOutAlt,FaChartBar, FaUsers, FaCalendarAlt,FaTable, FaClipboardList } from "react-icons/fa";
-import "./manager.css";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import RoleNavbar from "../roleNavbar/RoleNavbar";
+import "./manager.css"
 
-function Manager() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [activePopup, setActivePopup] = useState(null);
+export default function Manager() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
-  // close dropdown when click outside
-  useEffect (() =>{
-  const handleClickOutside = () => setDropdownOpen(false);
-  document.addEventListener("click", handleClickOutside);
-  return () => document.removeEventListener("click", handleClickOutside);
-},[]);
+  useEffect(() => {
+    // Check logged in
+    const isLoggedIn = sessionStorage.getItem("loggedIn");
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
 
-  const gridItems = [
-    {title: "Reservations" , icon: <FaCalendarAlt />, desc: "Manage restaurant"},
-    {title: "Tables" , icon: <FaTable />, desc: "View and assign Tables"},
-    {title: "Staff" , icon: <FaUsers />, desc: "Manage Staff"},
-    {title: "Reports" , icon: <FaChartBar />, desc: "View Reports"},
-    // {title: "Settings" , icon: <FaCog />},
+    // Fetch user
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
 
-  ];
-
-  return(
-    <div className="manager-container">
-      {/* Navbar */}
-      <nav className="manager-navbar">
-        <div className="navbar-left">
-          <h2 className="manager-logo">Manager Panel</h2>
-        </div>
-
-        <div className="navbar-center">
-          <input type="text" placeholder="Search..." className="manager-search" />
-        </div>
-
-        <div className="navbar-right">
-          <div
-            className="profile-container"
-            onClick={(e) => {
-              e.stopPropagation();
-              setDropdownOpen((prev) => !prev); 
-            }}> 
-            <FaUserCircle className="profile-icon"/>
-            {dropdownOpen && (
-              <div className="dropdown-menu">
-                <p><FaCog />Settings</p>
-                <p><FaSignOutAlt/>Logout</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </nav>
-      
-      {/* Dashboard Start */}
-      <main className="manager-main">
-        <section className="dashboard-grid">
-          {gridItems.map((item, index) => (
-            // onClick to open popup + add space after 'solid'
-            <div
-              className="grid-card"
-              key={index}
-              onClick={() => setActivePopup(item)} //Makes popup open
-              style={{ borderTop: `5px solid ${item.color || "#ff4d4d"}` }}
-            >
-              <div
-                className="grid-icon"
-                style={{ color: item.color || "#ff4d4d" }}
-              >
-                {item.icon}
-              </div>
-              <h3>{item.title}</h3>
-            </div>
-          ))}
-        </section>
-      </main>
-
-      {/* Popup Effect */}
-      {activePopup && (
-        <div
-          className="popup-overlay"
-          onClick={() => setActivePopup(null)}
-        >
-          <div
-            className="popup-box"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h2>{activePopup.title}</h2>
-            <p>{activePopup.desc}</p>
-            <button
-              className="popup-btn"
-              onClick={() => setActivePopup(null)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+  return (
+    <div>
+      {user && <RoleNavbar role={user.role} name={user.name} />}
+      <div style={{ padding: "20px" }}>
+        <h1>Manager Dashboard</h1>
+        <p>Welcome, {user?.name}. Try to Manage everything!</p>
+      </div>
     </div>
   );
 }
-export default Manager;
+

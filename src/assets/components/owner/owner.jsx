@@ -1,55 +1,37 @@
-import React, {useState} from "react";
-import { FaChartLine, FaUsers, FaClipboardList, FaUtensils, FaCalendarAlt, FaCog, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
-import "./owner.css";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import RoleNavbar from "../roleNavbar/RoleNavbar";
+import "./owner.css"
 
-function Owner() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+export default function Owner() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
-  const dashboardItems = [
-    { title: "Revenue", icon: <FaChartLine /> },
-    { title: "Staff Management", icon: <FaUsers /> },
-    { title: "Reports", icon: <FaClipboardList /> },
-    { title: "Menu Management", icon: <FaUtensils /> },
-    { title: "Reservations", icon: <FaCalendarAlt /> },
-    { title: "Settings", icon: <FaCog /> },
+  useEffect(() => {
+    // Check logged in
+    const isLoggedIn = sessionStorage.getItem("loggedIn");
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
 
-  ];
+    // Fetch user
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
 
-  return(
-    <div className="owner-countiner">
-      {/* Navbar */}
-      <nav className="owner-navbar">
-        <h2 className="owner-logo">Owner Panel</h2>
-
-          <div className="owner-search">
-            <input type="text" placeholder="Search..." />
-          </div>
-          <div className="owner-profile">
-            <div className="profile-icon" onClick={() => setDropdownOpen(!dropdownOpen) }>
-              <FaUserCircle />
-            </div>
-
-            {dropdownOpen && (
-              <div className="dropdown-menu">
-                <p><FaCog />Settings</p>
-                <p><FaSignOutAlt />Logout</p>
-              </div>
-            )}
-          </div>
-      </nav>
-
-      {/* Dashboard */}
-      <section className="owner-dashboard">
-        {dashboardItems.map((item, index)=>(
-          <div className="dashboard-card" key={index}>
-            <div className="dashboard-icon">{item.icon}</div>
-            <h3>{item.title}</h3>
-          </div>
-        ))}
-      </section>
+  return (
+    <div>
+      {user && <RoleNavbar role={user.role} name={user.name} />}
+      <div style={{ padding: "20px" }}>
+        <h1>Owner Dashboard</h1>
+        <p>Welcome, {user?.name}. Try to Own every restaurant!! ha ha</p>
+      </div>
     </div>
   );
-
 }
 
-export default Owner;
