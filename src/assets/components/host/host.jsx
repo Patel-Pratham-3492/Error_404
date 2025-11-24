@@ -1,14 +1,20 @@
 // HostDashboard.jsx
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import RoleNavbar from "./roleNavbar/RoleNavbar";
+import RoleNavbar from "../roleNavbar/RoleNavbar";
 import "./host.css";
+import hoverSoundFile from "./sound.mp3"
 
 export default function Host() {
   const [activeTab, setActiveTab] = useState("tables");
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+
+  // sound effect
+  const hoverSound = new Audio(hoverSoundFile);
+  hoverSound.volume = 0.4;
 
 
   // Reservation form state
@@ -35,7 +41,7 @@ export default function Host() {
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
 
-  // ----------------- FETCH DATA -----------------
+  // FETCH DATA 
   const fetchTables = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/table");
@@ -84,7 +90,7 @@ export default function Host() {
     setLoading(false);
   };
 
-  // ----------------- RESERVATION FORM -----------------
+  // RESERVATION FORM
   const handleReservationSubmit = async (e) => {
     e.preventDefault();
     if (!resName || !resEmail || !resPeople || !resDate) return;
@@ -128,7 +134,7 @@ export default function Host() {
     }
   };
 
-  // ----------------- STATUS UPDATE -----------------
+  // STATUS UPDATE 
   const handleStatusClick = (res) => {
     setSelectedRes(res);
     setNewStatus(res.status);
@@ -155,7 +161,7 @@ export default function Host() {
     }
   };
 
-  // ----------------- TABLE MANAGEMENT -----------------
+  // TABLE MANAGEMENT
   const openPopup = (table) => {
     setSelectedTable(table);
     setCustomerName(table.customerName || "");
@@ -223,7 +229,7 @@ export default function Host() {
     }
   };
 
-  // ----------------- FORMAT DATE -----------------
+  //  FORMAT DATE
   const formatDate = (d) => {
     const y = d.substring(0, 4);
     const m = d.substring(4, 6);
@@ -231,7 +237,7 @@ export default function Host() {
     return `${da}-${m}-${y}`;
   };
 
-  // ----------------- RENDER -----------------
+  // RENDER
   return (
     <div className="host-container">
       {/* Navbar */}
@@ -264,7 +270,7 @@ export default function Host() {
 
           {/* Content */}
           <div className={`host-content-rectangle show`}>
-            {/* -------- TABLE GRID -------- */}
+            {/* TABLE GRID */}
             {activeTab === "tables" && (
               <div className="host-table-grid">
                 {tables.map((table) => (
@@ -272,6 +278,7 @@ export default function Host() {
                     key={table._id}
                     className={`host-table-block ${table.status}`} // occupied/open for coloring
                     onClick={() => openPopup(table)}
+                    onMouseEnter={() => hoverSound.play()}
                   >
                     <div className="host-table-title">{table.name}</div>
                     <div className="host-table-capacity">{table.capacity} Seats</div>
@@ -335,7 +342,7 @@ export default function Host() {
               </div>
             )}
 
-            {/* -------- RESERVATION TABLE -------- */}
+            {/* RESERVATION TABLE */}
             {activeTab === "check" && (
               <div className="res-table-wrapper">
                 <table className="res-table">
@@ -405,7 +412,7 @@ export default function Host() {
               </div>
             )}
 
-            {/* -------- CREATE RESERVATION -------- */}
+            {/*  CREATE RESERVATION */}
             {activeTab === "create" && (
               <div className="host-reservation-form">
                 <form
