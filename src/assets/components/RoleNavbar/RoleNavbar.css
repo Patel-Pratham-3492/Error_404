@@ -4,7 +4,7 @@
   align-items: center;
   padding: 1rem 2rem;
   background: linear-gradient(180deg, #1d1d1d 0%, #2b2b2b 100%);
-  color: #f1faee;
+  color: #ffffff;
   position: relative;
   z-index: 10;
 }
@@ -21,7 +21,7 @@
   top: 40px;
   right: 0;
   background-color: #2b2b2b;
-  border: 1px solid #ffd166;
+  border: 1px solid #444;
   border-radius: 6px;
   overflow: hidden;
   display: flex;
@@ -46,6 +46,7 @@
   font-weight: 500;
   font-family: "Playfair Display", serif;
   transition: transform 0.3s ease;
+  color: #ffffff;
 }
 
 .role-logo:hover {
@@ -53,7 +54,7 @@
 }
 
 .role-logo-welcome {
-  color: #e63946;
+  color: #ff4d4d;
 }
 
 .role-logo-name {
@@ -61,33 +62,33 @@
 }
 
 .role-role-tag {
-  color: #ffd166;
+  color: #00ff2a;
   margin-left: 8px;
   font-size: 1.2rem;
 }
 
 /* Dropdown buttons */
 .role-profile-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.7rem 1rem;
   background: none;
   border: none;
-  color: #f1faee;
-  font-weight: bold;
+  color: #ffffff;
+  font-weight: 500;
   text-align: left;
   cursor: pointer;
   transition: background 0.2s;
 }
 .role-profile-btn:hover {
-  background-color: #ffd166;
+  background-color: #ff4d4d;
   color: #1d1d1d;
 }
 
 /* Logout Button */
 .role-logout-btn {
-  color: #e63946;
+  color: #ff4d4d;
   font-weight: 700;
 }
 .role-logout-btn:hover {
-  background-color: #e63946;
-  color: #f1faee;
+  background-color: #ff4d4d;
+  color: #000000;
 }

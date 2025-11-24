@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import "./RoleNavbar.css";
@@ -6,6 +6,7 @@ import "./RoleNavbar.css";
 const RoleNavbar = ({ role, name, email }) => {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
+  const menuRef = useRef(null);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -13,6 +14,18 @@ const RoleNavbar = ({ role, name, email }) => {
     navigate("/login");
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if(menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return() => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  
   return (
     <div className="role-navbar-container">
       <nav className="role-navbar">
@@ -26,10 +39,10 @@ const RoleNavbar = ({ role, name, email }) => {
 
         {/* Profile Icon */}
         <div
-          className="role-profile"
+          className="role-profile" ref={menuRef}
           onClick={() => setShowMenu(!showMenu)}
         >
-          <FaUserCircle size={30} color="#ffd166" />
+          <FaUserCircle size={30} color="#ede9e1ff" />
 
           {showMenu && (
             <div className="role-profile-menu">

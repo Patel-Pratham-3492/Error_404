@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import RoleNavbar from "../roleNavbar/RoleNavbar";
+import RoleNavbar from "./roleNavbar/RoleNavbar";
 import "./host.css";
 
 export default function Host() {
