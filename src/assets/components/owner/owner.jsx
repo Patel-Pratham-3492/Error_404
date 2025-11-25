@@ -1,9 +1,31 @@
-import React, { useState } from "react";
+import { useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import RoleNavbar from "../RoleNavbar/RoleNavbar";
+import Hire from "./Hire";
+import Fire from "./fire";
 import "./owner.css";
 
 export default function Owner() {
   const [activePage, setActivePage] = useState("overview");
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+   useEffect(() => {
+    // Check logged in
+    const isLoggedIn = sessionStorage.getItem("loggedIn");
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
+
+    // Fetch user
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   return (
     <div className="owner-wrapper">
@@ -45,26 +67,23 @@ export default function Owner() {
 
       {/* Main Content */}
       <div className="owner-content">
-        <RoleNavbar role="Owner" name="Owner" email="owner@example.com" />
+         {user && <RoleNavbar role={user.role} name={user.firstName} />}
 
         {/* OVERVIEW */}
         {activePage === "overview" && (
           <div className="page-section">
             <h1 className="page-title">Today's Overview</h1>
-
             <div className="stats-grid">
               <div className="owner-stat stat-red">
                 <h3 className="stat-title">Orders Today</h3>
                 <p className="stat-value">48</p>
               </div>
-
               <div className="owner-stat stat-green">
                 <h3 className="stat-title">Revenue Today</h3>
                 <p className="stat-value">$820</p>
               </div>
-
               <div className="owner-stat stat-blue">
-                <h3 className="stat-title">New Customers</h3>
+                <h3 className="stat-title">Total Customers</h3>
                 <p className="stat-value">19</p>
               </div>
             </div>
@@ -74,16 +93,14 @@ export default function Owner() {
         {/* HIRE STAFF */}
         {activePage === "hire" && (
           <div className="page-section">
-            <h1 className="page-title">Hire Staff</h1>
-            <p className="page-desc">Add new employees to your restaurant system.</p>
+            <Hire />
           </div>
         )}
 
         {/* FIRE STAFF */}
         {activePage === "fire" && (
           <div className="page-section">
-            <h1 className="page-title">Fire Staff</h1>
-            <p className="page-desc">Remove employees safely from the system.</p>
+            <Fire />
           </div>
         )}
 

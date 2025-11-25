@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import RoleNavbar from "../roleNavbar/RoleNavbar";
+import RoleNavbar from "../RoleNavbar/RoleNavbar";
 import "./admin.css"
 
 export default function Admin() {
@@ -26,7 +26,7 @@ export default function Admin() {
 
   return (
     <div>
-      {user && <RoleNavbar role={user.role} name={user.name} />}
+      {user && <RoleNavbar role={user.role} name={user.firstName} />}
       <div style={{ padding: "20px" }}>
         <h1>Admin Dashboard</h1>
         <p>Welcome, {user?.name}. Try to fix every bugs!</p>

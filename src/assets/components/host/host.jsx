@@ -1,8 +1,7 @@
 // HostDashboard.jsx
 import { useState, useEffect, useRef } from "react";
-import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import RoleNavbar from "../roleNavbar/RoleNavbar";
+import RoleNavbar from "../RoleNavbar/RoleNavbar";
 import "./host.css";
 import hoverSoundFile from "./sound.mp3"
 
@@ -241,7 +240,7 @@ export default function Host() {
   return (
     <div className="host-container">
       {/* Navbar */}
-      {user && <RoleNavbar role={user.role} name={user.name} />}
+     {user && <RoleNavbar role={user.role} name={user.firstName} />}
 
       {/* Main Section */}
       <div className="host-section">

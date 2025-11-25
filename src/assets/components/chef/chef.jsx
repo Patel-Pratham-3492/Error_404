@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import RoleNavbar from "../roleNavbar/RoleNavbar";
+import RoleNavbar from "../RoleNavbar/RoleNavbar";
 import "./chef.css"
 
 export default function Chef() {
@@ -26,7 +26,7 @@ export default function Chef() {
 
   return (
     <div>
-      {user && <RoleNavbar role={user.role} name={user.name} />}
+      {user && <RoleNavbar role={user.role} name={user.firstName} />}
       <div style={{ padding: "20px" }}>
         <h1>Chef Dashboard</h1>
         <p>Welcome, {user?.name}. Manage food preparation and kitchen tasks here.</p>

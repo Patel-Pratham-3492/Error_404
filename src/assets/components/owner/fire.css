@@ -1,0 +1,93 @@
+.fire-page {
+  padding: 20px;
+  color: white;
+}
+
+.fire-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  color: white;
+}
+
+.fire-table th, .fire-table td {
+  padding: 12px;
+  border-bottom: 1px solid #555;
+  text-align: left;
+}
+
+.fire-btn {
+  padding: 6px 12px;
+  background: #ff4d4d;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.fire-btn:hover {
+  background: #ff1a1a;
+}
+
+.popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  background: #2b2b2b;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #d4a056;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.icon.done {
+  color: #6bff81;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.icon.error {
+  color: #ff6363;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.confirm-box .confirm-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.confirm-buttons button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.confirm-buttons button:first-child {
+  background: #d4a056; /* Okay */
+  color: #1d1d1d;
+}
+
+.confirm-buttons button:last-child {
+  background: #555; /* Cancel */
+  color: white;
+}

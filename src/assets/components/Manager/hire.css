@@ -1,0 +1,74 @@
+.hire-page {
+  margin-top: 30px;
+}
+
+.hire-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+}
+
+.hire-form input,
+.hire-form select {
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+.hire-form button {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #d4a056;
+  color: #1d1d1d;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hire-form button:hover {
+  background: #b38847;
+}
+
+/* Popup */
+.popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2b2b2b;
+  padding: 30px 40px;
+  border-radius: 16px;
+  text-align: center;
+  color: white;
+  z-index: 1000;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+/* Loader */
+.loader {
+  border: 6px solid #3a3a3a;
+  border-top: 6px solid #d4a056;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Success/Error icons */
+.icon {
+  font-size: 48px;
+}
+
+.icon.done { color: #6bff81; }
+.icon.error { color: #ff6363; }
