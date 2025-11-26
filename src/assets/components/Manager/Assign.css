@@ -1,0 +1,205 @@
+/* ================================
+   MAIN CONTAINER
+================================ */
+
+.assign-container {
+  padding: 25px;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+}
+
+.assign-container h1 {
+  color: #f7d774; /* gold title */
+  margin-bottom: 15px;
+}
+
+/* ================================
+   SELECT DROPDOWNS
+================================ */
+
+.select-box label {
+  font-size: 16px;
+  color: #f7d774;
+}
+
+.select-box select {
+  width: 250px;
+  padding: 10px;
+  margin-top: 6px;
+  font-size: 16px;
+  background: #111;
+  color: #f7d774;
+  border: 2px solid #f7d77488;
+  border-radius: 6px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.select-box select:hover,
+.select-box select:focus {
+  border-color: #f7d774;
+}
+
+/* ================================
+   TABLE CARDS (GOLD + BLACK)
+================================ */
+
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.table-card {
+  padding: 18px;
+  border-radius: 12px;
+  background: #111; /* black background */
+  color: #f7d774;   /* soft gold text */
+  cursor: pointer;
+  transition: 0.25s ease;
+  border: 2px solid #f7d77455; /* faint gold border */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+.table-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+  border-color: #f7d774;
+}
+
+.table-card.selected {
+  background: linear-gradient(145deg, #f7d774, #c8a94c);
+  color: #000;
+  border-color: #000;
+  box-shadow: 0 6px 14px rgba(255, 215, 0, 0.4);
+}
+
+.table-card h3 {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.table-card p {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+
+/* Already assigned table glow */
+.table-card.assigned {
+  border-color: #f7d774;
+  box-shadow: 0 0 12px 2px rgba(247, 215, 116, 0.6);
+  background: #1a1a1a; /* slightly lighter black */
+  color: #f7d774;
+  transition: 0.3s;
+}
+
+.table-card.assigned:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px 4px rgba(247, 215, 116, 0.8);
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+.btn-row {
+  margin-top: 25px;
+  display: flex;
+  gap: 15px;
+}
+
+.assign-btn,
+.remove-btn {
+  padding: 12px 22px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+/* Assign (Gold button) */
+.assign-btn {
+  background: #f7d774;
+  color: #000;
+}
+
+.assign-btn:hover {
+  background: #ffea96;
+}
+
+/* Remove (Black/Red accent) */
+.remove-btn {
+  background: #000;
+  color: #ff4d4d;
+  border: 2px solid #ff4d4d;
+}
+
+.remove-btn:hover {
+  background: #330000;
+}
+
+/* ================================
+   POPUP OVERLAY
+================================ */
+
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.popup-box {
+  width: 270px;
+  padding: 28px;
+  background: #111;
+  border-radius: 12px;
+  text-align: center;
+  color: #f7d774;
+  border: 2px solid #f7d77455;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+}
+
+/* ================================
+   POPUP LOADER
+================================ */
+
+.loader {
+  border: 6px solid #333;
+  border-top: 6px solid #f7d774;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  margin: auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ================================
+   POPUP SUCCESS / ERROR ICONS
+================================ */
+
+.success-icon {
+  font-size: 55px;
+  color: #2aff4f;
+  margin-bottom: 8px;
+}
+
+.error-icon {
+  font-size: 55px;
+  color: #ff4444;
+  margin-bottom: 8px;
+}

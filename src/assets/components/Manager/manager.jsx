@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import RoleNavbar from "../RoleNavbar/RoleNavbar";
 import Hire from "./Hire";
 import Fire from "./Fire"; 
+import Assign from "./Assign";
+import Menu from "./Menu";
 import "./manager.css";
 
 export default function Manager() {
@@ -116,14 +118,14 @@ export default function Manager() {
          {/* assigned */}
         {activePage === "assigned" && (
           <div className="page-section">
-            Assigned waiters
+            <Assign />
           </div>
         )}
 
          {/* menu */}
         {activePage === "menu" && (
           <div className="page-section">
-            modify the menu
+            <Menu />
           </div>
         )}
 
