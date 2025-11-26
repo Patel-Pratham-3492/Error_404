@@ -5,6 +5,7 @@ import Hire from "./Hire";
 import Fire from "./Fire"; 
 import Assign from "./Assign";
 import Menu from "./Menu";
+import ViewMenu from "./Viewmenu";
 import "./manager.css";
 
 export default function Manager() {
@@ -72,6 +73,13 @@ export default function Manager() {
             Modify Menu
           </button>
 
+          <button
+            className={`sidebar-btn ${activePage === "menuview" ? "active" : ""}`}
+            onClick={() => setActivePage("menuview")}
+          >
+            View Menu
+          </button>
+
 
         </nav>
       </aside>
@@ -126,6 +134,12 @@ export default function Manager() {
         {activePage === "menu" && (
           <div className="page-section">
             <Menu />
+          </div>
+        )}
+
+        {activePage === "menuview" && (
+          <div className="page-section">
+            <ViewMenu />
           </div>
         )}
 

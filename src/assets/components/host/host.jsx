@@ -1,20 +1,18 @@
 // HostDashboard.jsx
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import RoleNavbar from "../RoleNavbar/RoleNavbar";
 import "./host.css";
-import hoverSoundFile from "./sound.mp3"
+import hoverSoundFile from "./sound.mp3";
 
 export default function Host() {
   const [activeTab, setActiveTab] = useState("tables");
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-
   // sound effect
   const hoverSound = new Audio(hoverSoundFile);
   hoverSound.volume = 0.4;
-
 
   // Reservation form state
   const [resName, setResName] = useState("");
@@ -40,33 +38,26 @@ export default function Host() {
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
 
-  // FETCH DATA 
+  // Fetch tables
   const fetchTables = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/table");
       const data = await res.json();
       if (data.success) setTables(data.tables);
-      else console.error("Failed to fetch tables:", data.message);
     } catch (err) {
       console.error("Error fetching tables:", err);
     }
   };
 
- useEffect(() => {
-    // Check logged in
+  useEffect(() => {
     const isLoggedIn = sessionStorage.getItem("loggedIn");
     if (!isLoggedIn) {
       navigate("/login");
       return;
     }
-
-    // Fetch user
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    } else {
-      navigate("/login");
-    }
+    if (storedUser) setUser(JSON.parse(storedUser));
+    else navigate("/login");
   }, [navigate]);
 
   useEffect(() => {
@@ -89,7 +80,7 @@ export default function Host() {
     setLoading(false);
   };
 
-  // RESERVATION FORM
+  // Reservation form submit
   const handleReservationSubmit = async (e) => {
     e.preventDefault();
     if (!resName || !resEmail || !resPeople || !resDate) return;
@@ -113,7 +104,7 @@ export default function Host() {
       const data = await res.json();
       if (!data.success) {
         setResError(true);
-        return setTimeout(() => setResPopup(false), 10000);
+        return setTimeout(() => setResPopup(false), 3000);
       }
 
       setResDone(true);
@@ -129,11 +120,11 @@ export default function Host() {
     } catch (err) {
       console.error(err);
       setResError(true);
-      setTimeout(() => setResPopup(false), 10000);
+      setTimeout(() => setResPopup(false), 3000);
     }
   };
 
-  // STATUS UPDATE 
+  // Status update
   const handleStatusClick = (res) => {
     setSelectedRes(res);
     setNewStatus(res.status);
@@ -160,7 +151,7 @@ export default function Host() {
     }
   };
 
-  // TABLE MANAGEMENT
+  // Table popup
   const openPopup = (table) => {
     setSelectedTable(table);
     setCustomerName(table.customerName || "");
@@ -170,47 +161,42 @@ export default function Host() {
 
   const closePopup = () => setPopupOpen(false);
 
-  // Mark a table as occupied
+  // Mark table as occupied (host)
   const markOccupied = async (table) => {
-  try {
-    const res = await fetch(
-      `http://localhost:5000/api/table/occupy/${table._id}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          customerName: customerName,
-          customerEmail: customerEmail,
-        }),
-      }
-    );
-
-    const data = await res.json();
-    if (data.success) {
-      console.log("Table marked as occupied!");
-      setPopupOpen(false);
-      setSelectedTable(null);
-      setCustomerName("");
-      setCustomerEmail("");
-
-      // Update local tables state to reflect the color immediately
-      setTables((prev) =>
-        prev.map((t) =>
-          t._id === table._id
-            ? { ...t, status: "occupied", customerName, customerEmail }
-            : t
-        )
-      );
-    } else {
-      console.error("Failed to mark occupied:", data.message);
+    if (!customerName || !customerEmail) {
+      alert("Please enter customer name and email!");
+      return;
     }
-  } catch (err) {
-    console.error("Error marking table occupied:", err);
-  }
-};
 
-  // Mark a table as open
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/table/occupy/${table._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ customerName, customerEmail }),
+        }
+      );
+      const data = await res.json();
+      if (data.success) {
+        setPopupOpen(false);
+        setSelectedTable(null);
+        setCustomerName("");
+        setCustomerEmail("");
+        fetchTables();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Mark table as open (host) → only if waiter freed it
   const markOpened = async (table) => {
+    if (table.AssignedWaiter && table.status === "occupied") {
+      alert("Waiter has not freed the table yet!");
+      return;
+    }
+
     try {
       const res = await fetch(
         `http://localhost:5000/api/table/open/${table._id}`,
@@ -218,7 +204,6 @@ export default function Host() {
       );
       const data = await res.json();
       if (data.success) {
-        console.log("Table marked as open!");
         setPopupOpen(false);
         setSelectedTable(null);
         fetchTables();
@@ -228,7 +213,6 @@ export default function Host() {
     }
   };
 
-  //  FORMAT DATE
   const formatDate = (d) => {
     const y = d.substring(0, 4);
     const m = d.substring(4, 6);
@@ -236,16 +220,11 @@ export default function Host() {
     return `${da}-${m}-${y}`;
   };
 
-  // RENDER
   return (
     <div className="host-container">
-      {/* Navbar */}
-     {user && <RoleNavbar role={user.role} name={user.firstName} />}
-
-      {/* Main Section */}
+      {user && <RoleNavbar role={user.role} name={user.firstName} />}
       <div className="host-section">
         <div className="host-main">
-          {/* Tabs */}
           <div className="host-options-row">
             <button
               className={`host-option-btn ${activeTab === "tables" ? "active" : ""}`}
@@ -267,7 +246,6 @@ export default function Host() {
             </button>
           </div>
 
-          {/* Content */}
           <div className={`host-content-rectangle show`}>
             {/* TABLE GRID */}
             {activeTab === "tables" && (
@@ -275,13 +253,15 @@ export default function Host() {
                 {tables.map((table) => (
                   <div
                     key={table._id}
-                    className={`host-table-block ${table.status}`} // occupied/open for coloring
+                    className={`host-table-block ${
+                      table.status === "open" ? "free" : "occupied"
+                    }`}
                     onClick={() => openPopup(table)}
                     onMouseEnter={() => hoverSound.play()}
                   >
                     <div className="host-table-title">{table.name}</div>
                     <div className="host-table-capacity">{table.capacity} Seats</div>
-                    {table.status === "occupied" && (
+                    {table.status === "occupied" && table.customerName && (
                       <div className="host-table-customer">{table.customerName}</div>
                     )}
                   </div>
@@ -289,8 +269,14 @@ export default function Host() {
 
                 {/* Table Popup */}
                 {popupOpen && selectedTable && (
-                  <div className="host-popup-overlay" onClick={closePopup}>
-                    <div className="host-popup" onClick={(e) => e.stopPropagation()}>
+                  <div
+                    className="host-popup-overlay"
+                    onClick={closePopup}
+                  >
+                    <div
+                      className="host-popup"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <button className="host-popup-close" onClick={closePopup}>
                         ✕
                       </button>
@@ -299,15 +285,18 @@ export default function Host() {
 
                       {selectedTable.status === "occupied" ? (
                         <>
-                          <p className="host-popup-sub" style={{ marginTop: "1rem" }}>
-                            This table is currently occupied.
-                          </p>
-                          <button
-                            className="host-popup-btn-green"
-                            onClick={() => markOpened(selectedTable)}
-                          >
-                            Mark as Open
-                          </button>
+                          {selectedTable.AssignedWaiter ? (
+                            <p style={{ color: "red" }}>
+                              Waiter has not freed this table yet!
+                            </p>
+                          ) : (
+                            <button
+                              className="host-popup-btn-green"
+                              onClick={() => markOpened(selectedTable)}
+                            >
+                              Mark as Open
+                            </button>
+                          )}
                         </>
                       ) : (
                         <>
@@ -317,7 +306,6 @@ export default function Host() {
                             value={customerName}
                             onChange={(e) => setCustomerName(e.target.value)}
                             className="host-popup-input"
-                            required
                           />
                           <input
                             type="email"
@@ -325,7 +313,6 @@ export default function Host() {
                             value={customerEmail}
                             onChange={(e) => setCustomerEmail(e.target.value)}
                             className="host-popup-input"
-                            required
                           />
                           <button
                             className="host-popup-btn-red"
@@ -411,7 +398,7 @@ export default function Host() {
               </div>
             )}
 
-            {/*  CREATE RESERVATION */}
+            {/* CREATE RESERVATION */}
             {activeTab === "create" && (
               <div className="host-reservation-form">
                 <form

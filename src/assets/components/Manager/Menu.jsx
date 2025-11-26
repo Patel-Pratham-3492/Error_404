@@ -183,58 +183,6 @@ export default function Menu() {
 
         <button onClick={handleAddItem} className="add-btn">Add Item</button>
       </div>
-
-      {/* Tabs */}
-      <div className="menu-tabs">
-        <button className={category === "food" ? "active" : ""} onClick={() => { setCategory("food"); setFilterSubCategory(""); }}>Food</button>
-        <button className={category === "beverage" ? "active" : ""} onClick={() => { setCategory("beverage"); setFilterSubCategory(""); }}>Beverage</button>
-      </div>
-
-      {/* Sub-Category Filter */}
-      <div className="subcat-filter">
-        <label>Filter by Sub-Category:</label>
-        <select value={filterSubCategory} onChange={e => setFilterSubCategory(e.target.value)}>
-          <option value="">All</option>
-          {subCategories[category].map(sub => (
-            <option key={sub} value={sub}>{sub}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Menu Items */}
-      <div className="menu-items">
-        {filteredItems.length === 0 ? (
-          <p>No items yet.</p>
-        ) : (
-          filteredItems.map(item => (
-            <div key={item._id} className="menu-item-card">
-              {item.image && (
-                <img
-                  src={`http://localhost:5000${item.image}`}
-                  alt={item.name}
-                  className="menu-item-image"
-                />
-              )}
-              <div className="menu-item-details">
-                <input type="text" value={item.name} onChange={e => handleFieldChange(item._id, "name", e.target.value)} />
-                <input type="number" value={item.price} onChange={e => handleFieldChange(item._id, "price", e.target.value)} />
-                <select value={item.subCategory} onChange={e => handleFieldChange(item._id, "subCategory", e.target.value)}>
-                  {subCategories[item.category].map(sub => (
-                    <option key={sub} value={sub}>{sub}</option>
-                  ))}
-                </select>
-                <label>
-                  <input type="checkbox" checked={item.special} onChange={e => handleFieldChange(item._id, "special", e.target.checked)} /> Special
-                </label>
-              </div>
-              <div className="menu-item-actions">
-                <button className="update-btn" onClick={() => handleUpdate(item)}>Update</button>
-                <button className="delete-btn" onClick={() => handleDelete(item._id)}>Delete</button>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
     </div>
   );
 }
