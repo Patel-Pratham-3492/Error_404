@@ -1,35 +1,38 @@
-/* ================================
-   MAIN CONTAINER
-================================ */
-
+/*  MAIN CONTAINER  */
 .assign-container {
   padding: 25px;
   font-family: "Poppins", sans-serif;
-  color: #fff;
+  color: #1a1a1a;
 }
 
 .assign-container h1 {
-  color: #f7d774; /* gold title */
+  color: #fff;
   margin-bottom: 15px;
 }
 
-/* ================================
-   SELECT DROPDOWNS
-================================ */
+.assign-container h2{
+  margin-top: 25px;
+  margin-bottom: 12px;
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+}
+/* SELECT DROPDOWNS */
 
 .select-box label {
   font-size: 16px;
-  color: #f7d774;
+  color: #fff;
 }
+
 
 .select-box select {
   width: 250px;
   padding: 10px;
   margin-top: 6px;
   font-size: 16px;
-  background: #111;
-  color: #f7d774;
-  border: 2px solid #f7d77488;
+  background: #f5f5f5;
+  color: #111;
+  border: 2px solid #d0d0d0;
   border-radius: 6px;
   outline: none;
   transition: 0.3s;
@@ -37,12 +40,10 @@
 
 .select-box select:hover,
 .select-box select:focus {
-  border-color: #f7d774;
+  border-color: #777;
 }
 
-/* ================================
-   TABLE CARDS (GOLD + BLACK)
-================================ */
+/* TABLE CARDS */
 
 .tables-grid {
   display: grid;
@@ -54,56 +55,56 @@
 .table-card {
   padding: 18px;
   border-radius: 12px;
-  background: #111; /* black background */
-  color: #f7d774;   /* soft gold text */
+  background: #ffffff; 
+  color: #222;
   cursor: pointer;
   transition: 0.25s ease;
-  border: 2px solid #f7d77455; /* faint gold border */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  border: 2px solid #dcdcdc;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .table-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 6px 14px rgba(0,0,0,0.6);
-  border-color: #f7d774;
+  border-color: #777;
 }
 
 .table-card.selected {
-  background: linear-gradient(145deg, #f7d774, #c8a94c);
+  background: linear-gradient(145deg, #fff, #bfbfbf);
   color: #000;
   border-color: #000;
-  box-shadow: 0 6px 14px rgba(255, 215, 0, 0.4);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
 }
 
 .table-card h3 {
   font-size: 20px;
   margin-bottom: 6px;
+  color: #e6dcdc;
 }
 
 .table-card p {
   margin: 2px 0;
   font-size: 14px;
+  color: #f1e8e8;
 }
 
 
 /* Already assigned table glow */
 .table-card.assigned {
-  border-color: #f7d774;
-  box-shadow: 0 0 12px 2px rgba(247, 215, 116, 0.6);
-  background: #1a1a1a; /* slightly lighter black */
-  color: #f7d774;
+  border-color: #555;
+  box-shadow: 0 0 12px 2px rgba(120, 120, 120, 0.4);
+  background: #fff;
+  color: #111;
   transition: 0.3s;
 }
 
 .table-card.assigned:hover {
   transform: translateY(-4px);
-  box-shadow: 0 0 20px 4px rgba(247, 215, 116, 0.8);
+  box-shadow: 0 0 20px 4px rgba(80, 80, 80, 0.6);
 }
 
 
-/* ================================
-   BUTTONS
-================================ */
+/* BUTTONS */
 
 .btn-row {
   margin-top: 25px;
@@ -122,30 +123,28 @@
   transition: 0.25s;
 }
 
-/* Assign (Gold button) */
+/* Assign */
 .assign-btn {
-  background: #f7d774;
-  color: #000;
+  background: #333;
+  color: #fff;
 }
 
 .assign-btn:hover {
-  background: #ffea96;
+  background: #bfb3b3;
 }
 
-/* Remove (Black/Red accent) */
+/* Remove */
 .remove-btn {
-  background: #000;
-  color: #ff4d4d;
-  border: 2px solid #ff4d4d;
+  background: #fff;
+  color: #c62828;
+  border: 2px solid #c62828;
 }
 
 .remove-btn:hover {
-  background: #330000;
+  background: #ffecec;
 }
 
-/* ================================
-   POPUP OVERLAY
-================================ */
+/* POPUP OVERLAY */
 
 .popup-overlay {
   position: fixed;
@@ -160,21 +159,19 @@
 .popup-box {
   width: 270px;
   padding: 28px;
-  background: #111;
+  background: #ffffff;
   border-radius: 12px;
   text-align: center;
-  color: #f7d774;
-  border: 2px solid #f7d77455;
-  box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+  color: #111;
+  border: 2px solid #dcdcdc;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
 }
 
-/* ================================
-   POPUP LOADER
-================================ */
+/* POPUP LOADER */
 
 .loader {
-  border: 6px solid #333;
-  border-top: 6px solid #f7d774;
+  border: 6px solid #ccc;
+  border-top: 6px solid #333;
   border-radius: 50%;
   width: 55px;
   height: 55px;
@@ -188,9 +185,7 @@
   }
 }
 
-/* ================================
-   POPUP SUCCESS / ERROR ICONS
-================================ */
+/* POPUP SUCCESS / ERROR ICONS */
 
 .success-icon {
   font-size: 55px;
@@ -200,6 +195,6 @@
 
 .error-icon {
   font-size: 55px;
-  color: #ff4444;
+  color: #e74c3c;
   margin-bottom: 8px;
 }

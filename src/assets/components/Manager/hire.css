@@ -1,35 +1,76 @@
 .hire-page {
   margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ 
+  text-align: center;
+}
+
+.hire-page h2,
+.hire-page h3,
+.hire-page .title{
+  text-align: left !important;
+  margin-left: 5px;
 }
 
 .hire-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-width: 400px;
+  max-width: 450px;
+  width: 100%;
+  padding: 20px 0;
+  position: relative;
+}
+
+.hire-form::before{
+  display: none !important;
 }
 
 .hire-form input,
 .hire-form select {
   padding: 12px 15px;
   border-radius: 8px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   font-size: 16px;
+  width: 100%;
+  background: rgba(20, 26, 32, 0.85);
+  color: #EAF6FF;
+  outline: none;
+  transition: 0.25s;
+}
+
+.hire-form input:focus,
+.hire-form select:focus{
+  border-color: #5CC8FF;
+  box-shadow: 0 0 6px #5CC8FF;
+}
+
+.hire-form select{
+  background: rgba(20, 26, 32, 0.95) !important;
+  color: #EAF6FF;
+}
+
+.hire-form select option{
+  background: #0F1418 !important;
+  color: #EAF6FF;
 }
 
 .hire-form button {
   padding: 12px;
   border-radius: 8px;
   border: none;
-  background: #d4a056;
-  color: #1d1d1d;
+  background: #5CC8FF;
+  color: #0a0a0a;
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .hire-form button:hover {
-  background: #b38847;
+  background: #3eb7f0;
 }
 
 /* Popup */
@@ -38,7 +79,7 @@
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  background: #2b2b2b;
+  background: #151a1e;
   padding: 30px 40px;
   border-radius: 16px;
   text-align: center;
@@ -49,12 +90,13 @@
   flex-direction: column;
   gap: 15px;
   align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Loader */
 .loader {
   border: 6px solid #3a3a3a;
-  border-top: 6px solid #d4a056;
+  border-top: 6px solid #5cc8ff;
   border-radius: 50%;
   width: 50px;
   height: 50px;

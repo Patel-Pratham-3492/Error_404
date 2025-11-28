@@ -38,13 +38,13 @@ function Login() {
         return;
       }
 
-      // ⭐ CASE 1: WAITER → show popup
+      // CASE 1: WAITER → show popup
       if (data.role === "waiter") {
         setWaiterPopup(true);  // open popup
         return;
       }
 
-      // ⭐ CASE 2: Other roles → direct login
+      //CASE 2: Other roles → direct login
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -64,7 +64,7 @@ function Login() {
     }
   };
 
-  // ⭐ STEP 2: Verify waiterId
+  // STEP 2: Verify waiterId
   const verifyWaiterId = async () => {
     if (!waiterId) {
       setWaiterError("Waiter ID is required.");

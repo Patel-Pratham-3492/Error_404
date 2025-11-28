@@ -9,7 +9,7 @@
 .host-section {
   width: 100%;
   min-height: calc(100vh - 70px);
-  background-color: #f4f4f4; /* slightly different from navbar and main */
+  background-color: #f4f4f4; 
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -17,7 +17,7 @@
 }
 /* Main Section */
 .host-main {
-  padding: 2rem; /* space inside main section */
+  padding: 2rem;
   width: 90%;
   max-width: 1200px;
   min-height: 60vh;
@@ -59,10 +59,10 @@
 }
 
 .host-option-btn.active {
-  background-color: #555; /* active top matches rectangle */
+  background-color: #555;
   color: #ff4f4f;
   border: 2px solid #ff4d4d;
-  border-bottom: 2px solid #fff; /* match rectangle bottom */
+  border-bottom: 2px solid #fff;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
@@ -79,7 +79,7 @@
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
-  margin-top: -2px; /* overlap rectangle with button border */
+  margin-top: -2px;
   border-radius: 0 0 8px 8px;
 
   /* subtle fade-in animation */
@@ -148,7 +148,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6); /* transparent dark */
+  background: rgba(0,0,0,0.6);
   display: flex;
   justify-content: center;
   align-items: center;
