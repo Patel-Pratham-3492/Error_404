@@ -1,7 +1,7 @@
 /* General page */
 .waiter-container {
-  background-color: #111; /* dark background */
-  color: #f5c518; /* golden text */
+  background-color: #111;
+  color: #f5c518;
   min-height: 100vh;
   padding: 20px;
   font-family: 'Arial', sans-serif;
@@ -10,7 +10,7 @@
 h1 {
   text-align: center;
   margin-bottom: 30px;
-  color: #ffd700;
+  color: #757571;
 }
 
 /* Tables grid */
@@ -23,7 +23,7 @@ h1 {
 /* Table card */
 .table-card {
   background-color: #1a1a1a;
-  border: 2px solid #f5c518;
+  border: 2px solid #80807f;
   border-radius: 10px;
   padding: 15px;
   cursor: pointer;
@@ -38,7 +38,7 @@ h1 {
 .table-card h3 {
   margin-top: 0;
   margin-bottom: 10px;
-  color: #ffd700;
+  color: #e0e0de;
 }
 
 .table-card p {
@@ -84,7 +84,7 @@ h1 {
 /* Popup box */
 .popup-box {
   background-color: #1a1a1a;
-  border: 2px solid #f5c518;
+  border: 2px solid #5f5f5d;
   border-radius: 10px;
   width: 90%;
   max-width: 800px;

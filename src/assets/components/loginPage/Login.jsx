@@ -120,6 +120,7 @@ function Login() {
               type="email"
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
+              placeholder="Enter your Email"
               required
             />
           </div>
@@ -130,6 +131,7 @@ function Login() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter Password"
               required
             />
           </div>

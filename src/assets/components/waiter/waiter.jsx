@@ -102,7 +102,6 @@ export default function Waiter() {
           </div>
         ))}
       </div>
-
       {/* Popup */}
       {showPopup && selectedTable && (
         <div className="popup-overlay" onClick={closePopup}>
