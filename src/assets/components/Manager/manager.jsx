@@ -70,7 +70,7 @@ export default function Manager() {
             className={`sidebar-btn ${activePage === "menu" ? "active" : ""}`}
             onClick={() => setActivePage("menu")}
           >
-            Modify Menu
+            Add Menu Items
           </button>
 
           <button

@@ -10,6 +10,7 @@ export default function Menu() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [special, setSpecial] = useState(false);
+  const [Description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -62,6 +63,7 @@ export default function Menu() {
   formData.append("name", name);
   formData.append("price", price);
   formData.append("special", special);
+  formData.append("Description", Description);
   if (image) formData.append("image", image);
 
   try {
@@ -73,6 +75,7 @@ export default function Menu() {
     // Reset form
     setName("");
     setPrice("");
+    setDescription("");
     setSpecial(false);
     setSubCategory("");
     setImage(null);
@@ -113,6 +116,7 @@ export default function Menu() {
       formData.append("name", item.name);
       formData.append("price", item.price);
       formData.append("special", item.special);
+      formData.append("Description", Description);
       if (item.imageFile) formData.append("image", item.imageFile);
 
       const res = await fetch(`http://localhost:5000/api/menu/${item._id}`, {
@@ -176,6 +180,9 @@ export default function Menu() {
         <label>
           <input type="checkbox" checked={special} onChange={e => setSpecial(e.target.checked)} /> Special
         </label>
+
+        <label>Description : </label>
+        <input type="text" value={Description} onChange={e => setDescription(e.target.value)} />
 
         <label>Image:</label>
         <input type="file" accept="image/*" onChange={handleImageChange}  ref={fileInputRef} />

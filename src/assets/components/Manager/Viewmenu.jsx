@@ -152,6 +152,12 @@ export default function ViewMenu() {
                   value={item.price}
                   onChange={e => handleFieldChange(item._id, "price", e.target.value)}
                 />
+                <input
+                  type="text"
+                  value={item.Description}
+                  onChange={e => handleFieldChange(item._id, "Description", e.target.value)}
+                />
+
                 <select
                   value={item.subCategory}
                   onChange={e => handleFieldChange(item._id, "subCategory", e.target.value)}

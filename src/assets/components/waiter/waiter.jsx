@@ -1,24 +1,31 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import RoleNavbar from "../RoleNavbar/RoleNavbar";
+import RoleNavbar from "../RoleNavbar/RoleNavbar"; 
+import Menus from "./Menus";
+import Payment from "./Payment";
+import Track from "./Track";
 import "./waiter.css";
 
 export default function Waiter() {
   const [user, setUser] = useState(null);
   const [tables, setTables] = useState([]);
+
+  const [selectedTable, setSelectedTable] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const [activeTab, setActiveTab] = useState("menu");
+
   const navigate = useNavigate();
 
-  // Fetch user and tables
   const fetchTables = async (waiterId) => {
     try {
       const res = await fetch("http://localhost:5000/api/table");
       const data = await res.json();
       if (data.success) {
-        // Only tables assigned to this waiter
-        const assignedTables = data.tables.filter(
+        const assigned = data.tables.filter(
           (t) => t.AssignedWaiter === waiterId
         );
-        setTables(assignedTables);
+        setTables(assigned);
       }
     } catch (err) {
       console.error(err);
@@ -34,75 +41,122 @@ export default function Waiter() {
 
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser);
-      fetchTables(parsedUser.waiterId);
+      const parsed = JSON.parse(storedUser);
+      setUser(parsed);
+      fetchTables(parsed.waiterId);
     } else {
       navigate("/login");
     }
   }, [navigate]);
 
-  // Mark table as free
-  const freeTable = async (table) => {
-    if (!window.confirm(`Are you sure you want to free table ${table.name}?`))
-      return;
+  const openPopup = (table) => {
+    setSelectedTable(table);
+    setActiveTab("menu");
+    setShowPopup(true);
+  };
 
-    try {
-      const res = await fetch(
-        `http://localhost:5000/api/table/free/${table._id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      const data = await res.json();
-      if (data.success) {
-        // Refresh tables
-        fetchTables(user.waiterId);
-      } else {
-        alert("Failed to free the table");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Error freeing table");
-    }
+  const closePopup = () => {
+    setShowPopup(false);
+    setSelectedTable(null);
   };
 
   return (
     <div className="waiter-container">
       {user && (
         <RoleNavbar
-          role={user.role + " : " + user.waiterId}
+          role={`${user.role} : ${user.waiterId}`}
           name={user.firstName}
         />
       )}
 
       <h1>Your Assigned Tables</h1>
 
-      {tables.length === 0 ? (
-        <p>No tables assigned yet.</p>
-      ) : (
-        <div className="tables-grid">
-          {tables.map((t) => (
-            <div
-              key={t._id}
-              className={`table-card ${
-                t.status === "occupied" ? "occupied" : "free"
-              }`}
-            >
-              <h3>{t.name}</h3>
-              <p>Capacity: {t.capacity}</p>
-              <p>Customer: {t.customerName || "None"}</p>
-              {t.status === "occupied" && (
-                <button
-                  className="free-table-btn"
-                  onClick={() => freeTable(t)}
-                >
-                  Free Table
-                </button>
+      <div className="tables-grid">
+        {tables.map((t) => (
+          <div
+            key={t._id}
+            className={`table-card ${t.status}`}
+            onClick={() => openPopup(t)}
+          >
+            <h3>{t.name}</h3>
+            <p>Capacity: {t.capacity}</p>
+            <p>Customer: {t.customerName || "None"}</p>
+
+            {t.status === "occupied" && (
+              <p className="customer-count">
+                Customer Track: <strong>{t.customerCount}</strong>
+              </p>
+            )}
+
+            {t.status === "occupied" && (
+              <button
+                className="free-table-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedTable(t);
+                }}
+              >
+                Free Table
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Popup */}
+      {showPopup && selectedTable && (
+        <div className="popup-overlay" onClick={closePopup}>
+          <div
+            className="popup-box"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* CLOSE BUTTON */}
+            <button className="popup-close-btn" onClick={closePopup}>
+              ✕
+            </button>
+
+            {/* Header Info */}
+            <div className="popup-header-info">
+              <h3>{selectedTable.name}</h3>
+              {selectedTable.status === "occupied" && (
+                <p>
+                  Customer Track:{" "}
+                  <strong>{selectedTable.customerCount}</strong>
+                </p>
               )}
             </div>
-          ))}
+
+            {/* Tabs */}
+            <div className="popup-tabs">
+              <button
+                className={activeTab === "menu" ? "active" : ""}
+                onClick={() => setActiveTab("menu")}
+              >
+                Menu
+              </button>
+
+              <button
+                className={activeTab === "track" ? "active" : ""}
+                onClick={() => setActiveTab("track")}
+              >
+                Track Orders
+              </button>
+
+              <button
+                className={activeTab === "payment" ? "active" : ""}
+                onClick={() => setActiveTab("payment")}
+              >
+                Payment
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="popup-content">
+              {activeTab === "menu" && <Menus table={selectedTable} />}
+              {activeTab === "track" && <Track table={selectedTable} />}
+              {activeTab === "payment" && <Payment table={selectedTable} />}
+            </div>
+          </div>
         </div>
       )}
     </div>

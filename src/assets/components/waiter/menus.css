@@ -1,0 +1,268 @@
+/* menus.css */
+
+.menus-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Category Tabs */
+.category-tabs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.category-tabs button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #eee;
+  font-weight: bold;
+}
+
+.category-tabs button.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Subcategory Tabs */
+.subcategory-tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.subcategory-tabs button {
+  padding: 5px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #ddd;
+}
+
+.subcategory-tabs button.active {
+  background-color: #2196f3;
+  color: white;
+}
+
+/* Menu Items Grid */
+.menu-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.menu-item-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+  text-align: center;
+}
+
+.menu-item-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.menu-item-card h4 {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.menu-item-card p {
+  font-size: 13px;
+  color: #555;
+}
+
+.menu-item-card button {
+  margin-top: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff9800;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.menu-item-card button:hover {
+  opacity: 0.9;
+}
+
+/* Popup overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Popup box */
+.popup-box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  position: relative;
+}
+
+.popup-box h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.popup-box img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.popup-box label {
+  display: block;
+  margin: 8px 0;
+}
+
+.popup-box input {
+  width: 100%;
+  padding: 5px;
+  margin-top: 3px;
+  box-sizing: border-box;
+}
+
+.confirm-btn {
+  margin-top: 10px;
+  padding: 7px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+
+.confirm-btn:hover {
+  opacity: 0.9;
+}
+
+/* Popup close button */
+.popup-close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Current Order Section */
+.current-order {
+  margin-top: 20px;
+  border-top: 2px solid #ccc;
+  padding-top: 15px;
+}
+
+.current-order h4 {
+  margin-bottom: 10px;
+}
+
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 5px 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+.order-row-actions button {
+  margin-left: 5px;
+  padding: 3px 6px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.order-row-actions button:first-child {
+  background-color: #2196f3;
+  color: white;
+}
+
+.order-row-actions button:last-child {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Priority Selector */
+.priority-label {
+  display: block;
+  margin-top: 10px;
+}
+
+.priority-label select {
+  margin-left: 5px;
+  padding: 3px 6px;
+}
+
+/* Success/Error Popup */
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2000;
+  animation: slideIn 0.3s;
+}
+
+.success-popup {
+  background-color: #4caf50;
+  color: white;
+}
+
+.error-popup {
+  background-color: #f44336;
+  color: white;
+}
+
+.popup-icon {
+  font-size: 16px;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.menu-item-description {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 5px 0 10px 0;
+}

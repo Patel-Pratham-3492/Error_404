@@ -163,10 +163,7 @@ export default function Host() {
 
   // Mark table as occupied (host)
   const markOccupied = async (table) => {
-    if (!customerName || !customerEmail) {
-      alert("Please enter customer name and email!");
-      return;
-    }
+    if (!customerName || !customerEmail) return;
 
     try {
       const res = await fetch(
@@ -190,34 +187,55 @@ export default function Host() {
     }
   };
 
-  // Mark table as open (host) → only if waiter freed it
-  const markOpened = async (table) => {
-    if (table.AssignedWaiter && table.status === "occupied") {
-      alert("Waiter has not freed the table yet!");
-      return;
-    }
+  // Mark table as open (host)
+// Mark table as open (host)
+const markOpened = async (table) => {
+  // Host can only open the table if status is "free"
+  if (table.status !== "free") {
+    alert("Host can only open tables that are free.");
+    return;
+  }
 
-    try {
-      const res = await fetch(
-        `http://localhost:5000/api/table/open/${table._id}`,
-        { method: "PUT" }
-      );
-      const data = await res.json();
-      if (data.success) {
-        setPopupOpen(false);
-        setSelectedTable(null);
-        fetchTables();
-      }
-    } catch (err) {
-      console.error(err);
+  try {
+    const res = await fetch(
+      `http://localhost:5000/api/table/open/${table._id}`,
+      { method: "PUT" }
+    );
+    const data = await res.json();
+    if (data.success) {
+      setPopupOpen(false);
+      setSelectedTable(null);
+      fetchTables();
+    } else {
+      alert(data.message || "Failed to open table.");
     }
-  };
+  } catch (err) {
+    console.error("Error opening table:", err);
+    alert("Something went wrong. Check console for details.");
+  }
+};
 
+
+  // Format date YYYYMMDD → DD-MM-YYYY
   const formatDate = (d) => {
     const y = d.substring(0, 4);
     const m = d.substring(4, 6);
     const da = d.substring(6, 8);
     return `${da}-${m}-${y}`;
+  };
+
+  // Map table status → CSS class
+  const getTableClass = (table) => {
+    switch (table.status) {
+      case "occupied":
+        return "host-table-block occupied"; // red
+      case "free":
+        return "host-table-block freed-by-waiter"; // blue
+      case "open":
+        return "host-table-block open"; // green
+      default:
+        return "host-table-block";
+    }
   };
 
   return (
@@ -253,15 +271,13 @@ export default function Host() {
                 {tables.map((table) => (
                   <div
                     key={table._id}
-                    className={`host-table-block ${
-                      table.status === "open" ? "free" : "occupied"
-                    }`}
+                    className={getTableClass(table)}
                     onClick={() => openPopup(table)}
                     onMouseEnter={() => hoverSound.play()}
                   >
                     <div className="host-table-title">{table.name}</div>
                     <div className="host-table-capacity">{table.capacity} Seats</div>
-                    {table.status === "occupied" && table.customerName && (
+                    {table.customerName && (
                       <div className="host-table-customer">{table.customerName}</div>
                     )}
                   </div>
@@ -283,21 +299,17 @@ export default function Host() {
                       <h2 className="host-popup-title">{selectedTable.name}</h2>
                       <p className="host-popup-sub">Capacity: {selectedTable.capacity}</p>
 
-                      {selectedTable.status === "occupied" ? (
-                        <>
-                          {selectedTable.AssignedWaiter ? (
-                            <p style={{ color: "red" }}>
-                              Waiter has not freed this table yet!
-                            </p>
-                          ) : (
-                            <button
-                              className="host-popup-btn-green"
-                              onClick={() => markOpened(selectedTable)}
-                            >
-                              Mark as Open
-                            </button>
-                          )}
-                        </>
+                      {(selectedTable.status === "occupied" &&
+                        !selectedTable.AssignedWaiter) ||
+                      selectedTable.status === "free" ? (
+                        <button
+                          className="host-popup-btn-green"
+                          onClick={() => markOpened(selectedTable)}
+                        >
+                          Mark as Open
+                        </button>
+                      ) : selectedTable.status === "occupied" && selectedTable.AssignedWaiter ? (
+                        <p>Waiter must free the table first</p>
                       ) : (
                         <>
                           <input
