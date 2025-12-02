@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import RoleNavbar from "../RoleNavbar/RoleNavbar"; 
-import Menus from "./menus";
+import Menus from "./Menus";
 import Payment from "./Payment";
 import Track from "./Track";
 import "./waiter.css";
