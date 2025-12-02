@@ -17,7 +17,7 @@ export default function OwnerOverview() {
   const fetchStats = async (selectedRange) => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/dashboard?range=${selectedRange}`);
+      const res = await fetch(`https://error-404-server.onrender.com/api/dashboard?range=${selectedRange}`);
       const data = await res.json();
       if (data.success) setStats(data);
     } catch (err) {

@@ -2,7 +2,7 @@ import { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import RoleNavbar from "../RoleNavbar/RoleNavbar";
 import Hire from "./Hire";
-import Fire from "./fire";
+import Fire from "./Fire";
 import Menu from "./Menu";
 import ManagerPayment from "./ManagerPayment";
 import ViewMenu from "./Viewmenu";

@@ -20,7 +20,7 @@ export default function Menus({ table }) {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/menu");
+        const res = await fetch("https://error-404-server.onrender.com/api/menu");
         const data = await res.json();
         setMenuItems(data);
       } catch (err) {
@@ -128,7 +128,7 @@ const confirmAddItem = () => {
           category: item.category,
         })),
       };
-      const res = await fetch("http://localhost:5000/api/order", {
+      const res = await fetch("https://error-404-server.onrender.com/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -230,7 +230,7 @@ const confirmAddItem = () => {
           <div key={item._id} className="menu-item-card">
             {item.image && (
               <img
-                src={`http://localhost:5000${item.image}`}
+                src={`https://error-404-server.onrender.com${item.image}`}
                 alt={item.name}
                 className="menu-item-image"
               />
@@ -252,7 +252,7 @@ const confirmAddItem = () => {
             <h3>{selectedItem.name}</h3>
             {selectedItem.image && (
               <img
-                src={`http://localhost:5000${selectedItem.image}`}
+                src={`https://error-404-server.onrender.com${selectedItem.image}`}
                 alt={selectedItem.name}
                 className="popup-image"
               />

@@ -11,7 +11,7 @@ export default function Payment({ table }) {
     if (!table) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/payment/table/${table.customerCount}`);
+      const res = await fetch(`https://error-404-server.onrender.com/api/payment/table/${table.customerCount}`);
       const data = await res.json();
       if (data.success) {
         setPaymentData(data);
@@ -36,7 +36,7 @@ export default function Payment({ table }) {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/payment/collect-multiple", {
+      const res = await fetch("https://error-404-server.onrender.com/api/payment/collect-multiple", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
