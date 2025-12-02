@@ -1,4 +1,4 @@
-import Intro from "./intro";
+import Intro from "./Intro";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
