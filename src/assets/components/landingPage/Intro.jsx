@@ -1,4 +1,5 @@
 import "./Intro.css";
+import { Link } from "react-router-dom";
 
 const Intro = () => {
   return (
@@ -16,7 +17,7 @@ const Intro = () => {
       </p>
 
       <div className="intro-buttons mt-4 ms-2">
-         <a href="/login" className="btn btn-order me-3">Login</a>
+         <Link to="/login" className="btn btn-order me-3">Login</Link>
       </div>
     </section>
   );
