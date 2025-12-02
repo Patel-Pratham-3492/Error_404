@@ -6,12 +6,42 @@ import Fire from "./Fire";
 import Assign from "./Assign";
 import Menu from "./Menu";
 import ViewMenu from "./Viewmenu";
+import ManagerPayment from "./ManagerPayment";
 import "./manager.css";
 
 export default function Manager() {
   const [activePage, setActivePage] = useState("overview");
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+const [stats, setStats] = useState({
+  totalOrders: 0,
+  totalRevenue: 0,
+  totalCustomers: 0,
+  pendingPayments: 0,
+  paidPayments: 0,
+  totalItemsSold: 0,
+  avgRevenuePerCustomer: 0
+});
+
+const fetchTodayStats = async () => {
+  try {
+    const res = await fetch("http://localhost:5000/api/dashboard/today-stats");
+    const data = await res.json();
+    if (data.success) setStats(data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+useEffect(() => {
+  fetchTodayStats();
+
+  const interval = setInterval(fetchTodayStats, 5000); // realtime refresh
+  return () => clearInterval(interval);
+}, []);
+
+
 
    useEffect(() => {
     // Check logged in
@@ -80,6 +110,13 @@ export default function Manager() {
             View Menu
           </button>
 
+          <button
+            className={`sidebar-btn ${activePage === "payment" ? "active" : ""}`}
+            onClick={() => setActivePage("payment")}
+          >
+            Payment
+          </button>
+
 
         </nav>
       </aside>
@@ -91,21 +128,45 @@ export default function Manager() {
         {/* OVERVIEW */}
         {activePage === "overview" && (
           <div className="page-section">
-            <h1 className="page-title">Today's Overview</h1>
-            <div className="stats-grid">
-              <div className="manager-stat stat-red">
-                <h3 className="stat-title">Orders Today</h3>
-                <p className="stat-value">48</p>
-              </div>
-              <div className="manager-stat stat-green">
-                <h3 className="stat-title">Revenue Today</h3>
-                <p className="stat-value">$820</p>
-              </div>
-              <div className="manager-stat stat-blue">
-                <h3 className="stat-title">Total Customers</h3>
-                <p className="stat-value">19</p>
-              </div>
-            </div>
+           <h1 className="page-title">Today's Overview</h1>
+
+<div className="stats-grid">
+  <div className="manager-stat stat-red">
+    <h3 className="stat-title">Orders Today</h3>
+    <p className="stat-value">{stats.totalOrders}</p>
+  </div>
+
+  <div className="manager-stat stat-green">
+    <h3 className="stat-title">Revenue Today</h3>
+    <p className="stat-value">${stats.totalRevenue}</p>
+  </div>
+
+  <div className="manager-stat stat-blue">
+    <h3 className="stat-title">Total Customers</h3>
+    <p className="stat-value">{stats.totalCustomers}</p>
+  </div>
+
+  <div className="manager-stat stat-yellow">
+    <h3 className="stat-title">Pending Payments</h3>
+    <p className="stat-value">{stats.pendingPayments}</p>
+  </div>
+
+  <div className="manager-stat stat-purple">
+    <h3 className="stat-title">Paid Payments</h3>
+    <p className="stat-value">{stats.paidPayments}</p>
+  </div>
+
+  <div className="manager-stat stat-orange">
+    <h3 className="stat-title">Items Sold</h3>
+    <p className="stat-value">{stats.totalItemsSold}</p>
+  </div>
+
+  <div className="manager-stat stat-teal">
+    <h3 className="stat-title">Avg Revenue Per Customer</h3>
+    <p className="stat-value">${stats.avgRevenuePerCustomer}</p>
+  </div>
+</div>
+
           </div>
         )}
 
@@ -140,6 +201,12 @@ export default function Manager() {
         {activePage === "menuview" && (
           <div className="page-section">
             <ViewMenu />
+          </div>
+        )}
+
+        {activePage === "payment" && (
+          <div className="page-section">
+            <ManagerPayment />
           </div>
         )}
 

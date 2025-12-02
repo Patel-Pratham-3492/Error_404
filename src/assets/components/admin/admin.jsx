@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RoleNavbar from "../RoleNavbar/RoleNavbar";
-import "./admin.css"
+import "./admin.css";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -24,14 +24,33 @@ export default function Admin() {
     }
   }, [navigate]);
 
+  const roleDashboards = [
+    { role: "host", label: "Host Dashboard", path: "/host" },
+    { role: "waiter", label: "Waiter Dashboard", path: "/waiter" },
+    { role: "chef", label: "Chef Dashboard", path: "/chef" },
+    { role: "manager", label: "Manager Dashboard", path: "/manager" },
+    { role: "owner", label: "Owner Dashboard", path: "/owner" },
+  ];
+
   return (
     <div>
       {user && <RoleNavbar role={user.role} name={user.firstName} />}
-      <div style={{ padding: "20px" }}>
+      <div className="admin-container">
         <h1>Admin Dashboard</h1>
-        <p>Welcome, {user?.name}. Try to fix every bugs!</p>
+        <p>Welcome, {user?.firstName}. You can navigate to any role dashboard:</p>
+
+        <div className="role-buttons">
+          {roleDashboards.map((r) => (
+            <button
+              key={r.role}
+              className="role-btn"
+              onClick={() => navigate(r.path)}
+            >
+              {r.label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
-

@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import RoleNavbar from "../RoleNavbar/RoleNavbar";
 import Hire from "./Hire";
 import Fire from "./fire";
+import Menu from "./Menu";
+import ManagerPayment from "./ManagerPayment";
+import ViewMenu from "./Viewmenu";
+import Overview from "./Overview";
 import "./owner.css";
 
 export default function Owner() {
@@ -57,10 +61,24 @@ export default function Owner() {
           </button>
 
           <button
-            className={`sidebar-btn ${activePage === "reports" ? "active" : ""}`}
-            onClick={() => setActivePage("reports")}
+            className={`sidebar-btn ${activePage === "menu" ? "active" : ""}`}
+            onClick={() => setActivePage("menu")}
           >
-            Weekly & Monthly Reports
+            Add Menu Items
+          </button>
+
+          <button
+            className={`sidebar-btn ${activePage === "menuview" ? "active" : ""}`}
+            onClick={() => setActivePage("menuview")}
+          >
+            View Menu
+          </button>
+
+          <button
+            className={`sidebar-btn ${activePage === "payment" ? "active" : ""}`}
+            onClick={() => setActivePage("payment")}
+          >
+            Payment
           </button>
         </nav>
       </aside>
@@ -72,21 +90,7 @@ export default function Owner() {
         {/* OVERVIEW */}
         {activePage === "overview" && (
           <div className="page-section">
-            <h1 className="page-title">Today's Overview</h1>
-            <div className="stats-grid">
-              <div className="owner-stat stat-red">
-                <h3 className="stat-title">Orders Today</h3>
-                <p className="stat-value">48</p>
-              </div>
-              <div className="owner-stat stat-green">
-                <h3 className="stat-title">Revenue Today</h3>
-                <p className="stat-value">$820</p>
-              </div>
-              <div className="owner-stat stat-blue">
-                <h3 className="stat-title">Total Customers</h3>
-                <p className="stat-value">19</p>
-              </div>
-            </div>
+           <Overview />
           </div>
         )}
 
@@ -104,13 +108,27 @@ export default function Owner() {
           </div>
         )}
 
-        {/* REPORTS */}
-        {activePage === "reports" && (
-          <div className="page-section">
-            <h1 className="page-title">Weekly & Monthly Reports</h1>
-            <p className="page-desc">View detailed performance analytics.</p>
+         {/* menu */}
+        {activePage === "menu" && (
+         <div className="page-section">
+            <Menu />
           </div>
         )}
+        
+        {/* view menu */}
+        {activePage === "menuview" && (
+          <div className="page-section">
+            <ViewMenu />
+          </div>
+        )}
+        
+        {/* payment */}
+        {activePage === "payment" && (
+          <div className="page-section">
+            <ManagerPayment />
+          </div>
+        )}
+
       </div>
     </div>
   );

@@ -15,9 +15,8 @@ const Intro = () => {
         Enjoy perfectly grilled delights, crafted with passion and served fresh every time.
       </p>
 
-      <div className="intro-buttons mt-4">
+      <div className="intro-buttons mt-4 ms-2">
          <a href="/login" className="btn btn-order me-3">Login</a>
-          <a href="/signup" className="btn btn-book">Signup</a>
       </div>
     </section>
   );

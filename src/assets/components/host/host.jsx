@@ -29,6 +29,9 @@ export default function Host() {
   const [statusPopup, setStatusPopup] = useState(false);
   const [selectedRes, setSelectedRes] = useState(null);
   const [newStatus, setNewStatus] = useState("pending");
+  const [popupMessage, setPopupMessage] = useState(""); // message text
+  const [popupVisible, setPopupVisible] = useState(false); // show/hide
+
   const [loading, setLoading] = useState(true);
 
   // Tables state
@@ -37,6 +40,12 @@ export default function Host() {
   const [selectedTable, setSelectedTable] = useState(null);
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
+
+const showPopup = (message) => {
+    setPopupMessage(message);
+    setPopupVisible(true);
+    setTimeout(() => setPopupVisible(false), 2000);
+  };
 
   // Fetch tables
   const fetchTables = async () => {
@@ -187,12 +196,11 @@ export default function Host() {
     }
   };
 
-  // Mark table as open (host)
 // Mark table as open (host)
 const markOpened = async (table) => {
   // Host can only open the table if status is "free"
   if (table.status !== "free") {
-    alert("Host can only open tables that are free.");
+    showPopup("Host can only open tables that are free.");
     return;
   }
 
@@ -203,15 +211,16 @@ const markOpened = async (table) => {
     );
     const data = await res.json();
     if (data.success) {
+      showPopup("Table marked as Open!");
       setPopupOpen(false);
       setSelectedTable(null);
       fetchTables();
     } else {
-      alert(data.message || "Failed to open table.");
+      showPopup(data.message || "Failed to open table.");
     }
   } catch (err) {
     console.error("Error opening table:", err);
-    alert("Something went wrong. Check console for details.");
+    showPopup("Something went wrong. Check console.");
   }
 };
 
@@ -243,6 +252,11 @@ const markOpened = async (table) => {
       {user && <RoleNavbar role={user.role} name={user.firstName} />}
       <div className="host-section">
         <div className="host-main">
+          {popupVisible && (
+        <div className="host-alert-popup">
+        {popupMessage}
+        </div>
+          )}
           <div className="host-options-row">
             <button
               className={`host-option-btn ${activeTab === "tables" ? "active" : ""}`}

@@ -1,14 +1,81 @@
-.settings-container {
-  width: 100%;
-  height: 100vh;
-  background: #111;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.setting-container {
+  width: 80%;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.settings-text {
+.setting-container h1 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.personal-details, .password-change {
+  background: #1d1d1d;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.personal-details p, .password-change input {
+  margin: 10px 0;
+}
+
+.password-change input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #2b2b2b;
+  color: #fff;
+}
+
+.password-change button {
+  margin-top: 15px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #0a8d3c;
   color: white;
-  font-size: 2rem;
-  font-weight: bold;
+  cursor: pointer;
+}
+
+.password-change button:hover {
+  background: #0c7a34;
+}
+
+.message {
+  margin: 10px 0;
+  color: #ff4d4d;
+}
+
+/* setting.css */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.4s, transform 0.4s;
+  z-index: 1000;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast.success {
+  background-color: #0a8d3c;
+}
+
+.toast.error {
+  background-color: #ff4d4d;
 }

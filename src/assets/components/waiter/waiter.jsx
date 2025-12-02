@@ -13,9 +13,18 @@ export default function Waiter() {
   const [selectedTable, setSelectedTable] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
+  const [popupMessage, setPopupMessage] = useState(""); // message text
+  const [popupVisible, setPopupVisible] = useState(false); // show/hide
+
   const [activeTab, setActiveTab] = useState("menu");
 
   const navigate = useNavigate();
+
+  const showPopupmessage = (message) => {
+    setPopupMessage(message);
+    setPopupVisible(true);
+    setTimeout(() => setPopupVisible(false), 2000);
+  };
 
   const fetchTables = async (waiterId) => {
     try {
@@ -49,16 +58,43 @@ export default function Waiter() {
     }
   }, [navigate]);
 
-  const openPopup = (table) => {
-    setSelectedTable(table);
-    setActiveTab("menu");
-    setShowPopup(true);
-  };
+ const openPopup = (table) => {
+  if (table.status !== "occupied") return; // only occupied tables can open popup
+  setSelectedTable(table);
+  setActiveTab("menu");
+  setShowPopup(true);
+};
+
 
   const closePopup = () => {
     setShowPopup(false);
     setSelectedTable(null);
   };
+
+  const freeTable = async (tableId) => {
+  try {
+    const res = await fetch(`http://localhost:5000/api/table/free/${tableId}`, {
+      method: "PUT",
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      // Update table list after freeing
+      setTables((prev) =>
+        prev.map((t) => (t._id === tableId ? data.table : t))
+      );
+      // Optional: show popup message
+      //setShowPopup(false); // close popup if it was open
+      showPopupmessage("now, the table is free"); // can replace with popup component
+    } else {
+      showPopupmessage("there is an error!");
+    }
+  } catch (err) {
+    console.error(err);
+    showPopupmessage("there is an error!");
+  }
+};
+
 
   return (
     <div className="waiter-container">
@@ -70,7 +106,11 @@ export default function Waiter() {
       )}
 
       <h1>Your Assigned Tables</h1>
-
+       {popupVisible && (
+        <div className="host-alert-popup">
+        {popupMessage}
+        </div>
+          )}
       <div className="tables-grid">
         {tables.map((t) => (
           <div
@@ -84,7 +124,7 @@ export default function Waiter() {
 
             {t.status === "occupied" && (
               <p className="customer-count">
-                Customer Track: <strong>{t.customerCount}</strong>
+                Customer Track: <strong>{t.newSessionId}</strong>
               </p>
             )}
 
@@ -93,7 +133,7 @@ export default function Waiter() {
                 className="free-table-btn"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setSelectedTable(t);
+                  freeTable(t._id);
                 }}
               >
                 Free Table
@@ -120,7 +160,7 @@ export default function Waiter() {
               {selectedTable.status === "occupied" && (
                 <p>
                   Customer Track:{" "}
-                  <strong>{selectedTable.customerCount}</strong>
+                  <strong>{selectedTable.newSessionId}</strong>
                 </p>
               )}
             </div>

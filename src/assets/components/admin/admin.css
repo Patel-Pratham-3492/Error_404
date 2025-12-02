@@ -1,0 +1,25 @@
+.admin-container {
+  padding: 20px;
+}
+
+.role-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.role-btn {
+  padding: 12px 20px;
+  background-color: #1d1d1d;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.role-btn:hover {
+  background-color: #ff4d4d;
+  color: #fff;
+}

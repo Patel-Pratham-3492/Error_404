@@ -116,6 +116,7 @@ const confirmAddItem = () => {
         tableId: table._id,
         tableName: table.name,
         customerCount: table.customerCount || 1,
+        newSessionId: table.newSessionId,
         priority: Number(priority),
         paymentstatus: "pending",
         items: orderItems.map((item) => ({

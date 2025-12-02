@@ -181,3 +181,27 @@ h1 {
 .popup-content::-webkit-scrollbar-track {
   background-color: #111;
 }
+
+.host-alert-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50; /* green, success */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  font-weight: bold;
+  z-index: 9999;
+  animation: fadeins 0.3s, fadeouts 0.5s 1.5s;
+}
+
+@keyframes fadeins {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeouts {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}

@@ -95,14 +95,15 @@ export default function Track({ table }) {
   };
 
   // Handle empty state gracefully
-  if (!orders || orders.length === 0) {
-    return (
-      <div className="track-container">
-        <h2 className="main-title">Track Orders</h2>
-        <p>No pending orders for this table.</p>
-      </div>
-    );
-  }
+ if (!orders || orders.length === 0) {
+  return (
+    <div className="track-container">
+      <h2 className="main-title">Track Orders</h2>
+      <p>No pending orders for this table.</p>
+    </div>
+  );
+}
+
 
   // Group food & beverage items
   const foodItems = [];
@@ -110,6 +111,7 @@ export default function Track({ table }) {
 
   orders.forEach(order => {
     order.items.forEach(item => {
+      if (item.status === "done") return;
       if (item.category === "food") foodItems.push({ order, item });
       else if (item.category === "beverage") beverageItems.push({ order, item });
     });
