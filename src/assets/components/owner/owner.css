@@ -53,17 +53,18 @@
 /* Main Content */
 .owner-content {
   flex: 1;
-  padding: 20px 40px;
+  padding: 10px 40px;
 }
 
 .page-section {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .page-title {
   font-size: 40px;
   font-family: "Playfair Display", serif;
   margin-bottom: 20px;
+  color: #ffffff !important;
 }
 
 .page-desc {

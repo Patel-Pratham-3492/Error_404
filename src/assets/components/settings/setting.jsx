@@ -50,7 +50,7 @@ export default function Setting() {
 
     setLoading(true);
     try {
-      const res = await fetch(`https://error-404-server.onrender.com/api/users/${user._id}/change-password`, {
+      const res = await fetch(`http://localhost:5000/api/users/${user._id}/change-password`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ oldPassword, newPassword }),

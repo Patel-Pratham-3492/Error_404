@@ -41,7 +41,7 @@ export default function Chef() {  // make sure 'user' is passed as prop
 
   const fetchOrders = async () => {
     try {
-      const res = await fetch("https://error-404-server.onrender.com/api/order/today");
+      const res = await fetch("http://localhost:5000/api/order/today");
       const data = await res.json();
       if (data.success) {
         const filtered = data.orders.filter(o => o.status !== "done");
@@ -58,7 +58,7 @@ export default function Chef() {  // make sure 'user' is passed as prop
 
   const updateStatus = async (orderId, newStatus) => {
     try {
-      const res = await fetch(`https://error-404-server.onrender.com/api/order/${orderId}/status`, {
+      const res = await fetch(`http://localhost:5000/api/order/${orderId}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),
@@ -75,7 +75,7 @@ export default function Chef() {  // make sure 'user' is passed as prop
       {/* RoleNavbar at the top */}
       {user && <RoleNavbar role={user.role} name={user.firstName} />}
 
-      <h1>Chef Dashboard</h1>
+      <h1 className="chef-h1">Chef Dashboard</h1>
       <table className="chef-table">
         <thead>
           <tr>

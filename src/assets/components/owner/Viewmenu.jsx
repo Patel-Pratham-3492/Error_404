@@ -5,8 +5,8 @@ export default function ViewMenu() {
   const [items, setItems] = useState([]);
   const [category, setCategory] = useState("food"); // toggle between food & beverage
   const [subCategories] = useState({
-    food: ["Starters", "Main Course", "Desserts"],
-    beverage: ["Soft Drinks", "Coffee/Tea", "Cocktails"]
+    food: ["Appetizers", "Burgers & Sandwiches", "Desserts","Entrees","Sides"],
+    beverage: ["Drinks"]
   });
   const [filterSubCategory, setFilterSubCategory] = useState("");
 
@@ -16,7 +16,7 @@ export default function ViewMenu() {
   // Fetch menu items
   const fetchItems = async () => {
     try {
-      const res = await fetch("https://error-404-server.onrender.com/api/menu");
+      const res = await fetch("http://localhost:5000/api/menu");
       const data = await res.json();
       setItems(data);
     } catch (err) {
@@ -38,7 +38,7 @@ export default function ViewMenu() {
   const handleDelete = async (id) => {
     showPopup("loading", "Deleting...");
     try {
-      const res = await fetch(`https://error-404-server.onrender.com/api/menu/${id}`, { method: "DELETE" });
+      const res = await fetch(`http://localhost:5000/api/menu/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Delete failed");
       await res.json();
       fetchItems();
@@ -60,7 +60,7 @@ export default function ViewMenu() {
       formData.append("special", item.special);
       if (item.imageFile) formData.append("image", item.imageFile);
 
-      const res = await fetch(`https://error-404-server.onrender.com/api/menu/${item._id}`, {
+      const res = await fetch(`http://localhost:5000/api/menu/${item._id}`, {
         method: "PUT",
         body: formData
       });
@@ -135,7 +135,7 @@ export default function ViewMenu() {
             <div key={item._id} className="menu-item-card">
               {item.image && (
                 <img
-                  src={`https://error-404-server.onrender.com${item.image}`}
+                  src={`http://localhost:5000${item.image}`}
                   alt={item.name}
                   className="menu-item-image"
                 />

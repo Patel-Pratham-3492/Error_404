@@ -1,32 +1,44 @@
+/* Tracking Page — Gold/Dark Theme */
+
+/* Main Container */
 .track-container {
   max-width: 900px;
   margin: 20px auto;
-  font-family: 'Arial', sans-serif;
+  font-family: "Playfair Display", serif;
+  color: #ffffff;
+  background: #1d1d1d;
+  padding: 20px;
+  border-radius: 16px;
 }
 
+/* Titles */
 .main-title {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 28px;
+  margin-bottom: 25px;
+  font-size: 30px;
+  color: #d4a056;
 }
 
 .section-title {
   font-size: 22px;
   margin-top: 30px;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #333;
-  padding-bottom: 5px;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #d4a056;
+  padding-bottom: 6px;
+  color: #d4a056;
 }
 
+/* Order Item Card */
 .order-item-card {
   display: flex;
   justify-content: space-between;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 10px 15px;
-  margin-bottom: 10px;
+  border: 1px solid #d4a056;
+  border-radius: 12px;
+  padding: 15px 18px;
+  margin-bottom: 15px;
   position: relative;
-  background-color: #fafafa;
+  background-color: #2b2b2b;
+  box-shadow: 0 0 10px rgba(212, 160, 86, 0.2);
 }
 
 .left-section {
@@ -38,99 +50,140 @@
 .item-name {
   font-weight: bold;
   font-size: 18px;
+  color: #d4a056;
 }
 
-.item-qty, .item-custom {
+.item-qty,
+.item-custom {
   font-size: 14px;
-  color: #555;
+  color: #e6e6e6;
 }
 
 .right-top {
   text-align: right;
 }
 
-.status, .priority {
+.status,
+.priority {
   font-size: 14px;
   font-weight: bold;
+  color: #ffffff;
 }
 
+/* Buttons in Card */
 .right-bottom {
   position: absolute;
-  bottom: 10px;
+  bottom: 12px;
   right: 15px;
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 button {
-  padding: 5px 10px;
+  padding: 6px 12px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  background: #d4a056;
+  color: #1d1d1d;
+  transition: 0.2s;
+  box-shadow: 0 0 8px rgba(212, 160, 86, 0.4);
 }
 
 button:hover {
-  opacity: 0.85;
+  background: #b38847;
 }
 
+/* Delete Button */
 .delete-btn {
-  background-color: #f44336;
-  color: #fff;
+  background-color: #ff6363;
+  color: #1d1d1d;
+  box-shadow: 0 0 8px rgba(255, 99, 99, 0.6);
 }
 
 .delete-btn:hover {
-  background-color: #d32f2f;
+  background-color: #d14f4f;
 }
 
+/* Edit Buttons Group */
 .edit-buttons {
   display: flex;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 12px;
+  margin-top: 18px;
 }
 
+/* Cancel Button */
 .cancel-btn {
-  background-color: #999;
-  color: #fff;
+  background-color: #3a3a3a;
+  color: #ffffff;
+  box-shadow: none;
 }
 
+.cancel-btn:hover {
+  opacity: 0.8;
+}
+
+/* Edit Popup */
 .edit-popup {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background: #2b2b2b;
   padding: 25px;
-  border-radius: 8px;
-  z-index: 100;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  width: 350px;
+  border-radius: 12px;
+  z-index: 1000;
+  border: 1px solid #d4a056;
+  width: 360px;
+  box-shadow: 0 0 15px rgba(212, 160, 86, 0.4);
 }
 
 .edit-popup input {
   width: 100%;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  padding: 5px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  padding: 8px;
+  border-radius: 6px;
+  background: #1d1d1d;
+  border: 1px solid #d4a056;
+  color: #ffffff;
 }
 
+/* Popup Notifications */
 .popup {
   position: fixed;
-  top: 10px;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 10px 20px;
-  border-radius: 6px;
-  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: #1d1d1d;
   font-weight: bold;
-  z-index: 1000;
+  z-index: 2000;
+  animation: slideIn 0.3s ease-out;
 }
 
+/* Success */
 .success-popup {
-  background-color: #4CAF50;
+  background-color: #6bff81;
+  box-shadow: 0 0 10px rgba(107, 255, 129, 0.7);
 }
 
+/* Error */
 .error-popup {
-  background-color: #f44336;
+  background-color: #ff6363;
+  box-shadow: 0 0 10px rgba(255, 99, 99, 0.7);
+}
+
+/* Slide Animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }

@@ -1,55 +1,96 @@
+/* Payment Page – Gold/Dark Premium Theme */
+
+/* Main Container */
 .payment-container {
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: "Playfair Display", serif;
+  background: #1d1d1d;
+  min-height: 100vh;
+  color: #ffffff;
 }
 
+/* Payment Section Box */
 .payment-section {
   margin-bottom: 30px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  padding: 18px;
+  background: #2b2b2b;
+  border-radius: 12px;
+  border: 1px solid #d4a056;
+  box-shadow: 0 0 12px rgba(212, 160, 86, 0.25);
 }
 
 .payment-section h3 {
-  margin-bottom: 10px;
-  color: #007bff;
-  border-bottom: 1px solid #007bff;
-  padding-bottom: 5px;
+  margin-bottom: 12px;
+  color: #d4a056;
+  border-bottom: 1px solid #d4a056;
+  padding-bottom: 6px;
+  font-size: 20px;
 }
 
+/* Payment Table */
 .payment-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .payment-table th,
 .payment-table td {
-  border: 1px solid #ddd;
+  border: 1px solid #d4a05644;
   padding: 10px;
   text-align: center;
+  color: #ffffff;
 }
 
 .payment-table th {
-  background-color: #007bff;
-  color: white;
+  background: #d4a056;
+  color: #1d1d1d;
+  font-weight: bold;
 }
 
 .payment-table.paid th {
-  background-color: #28a745;
+  background-color: #6bff81;
+  color: #1d1d1d;
 }
 
+/* Table Hover */
+.payment-table tr:hover {
+  background-color: #3a3a3a;
+}
+
+/* Word Wrap */
+.payment-table td,
+.payment-table th {
+  word-break: break-word;
+}
+
+/* Pending payment rows */
+.payment-section .payment-table tbody tr {
+  background-color: #3b2e12; /* warm, muted gold-brown */
+}
+
+.payment-section .payment-table tbody tr:nth-child(even) {
+  background-color: #4a3820; /* slightly lighter */
+}
+
+/* Paid rows */
+.payment-table.paid tbody tr {
+  background-color: #20491f; /* deep green tone */
+}
+
+/* Summary Row */
 .payment-summary {
-  margin-top: 10px;
+  margin-top: 12px;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
-  font-size: 16px;
+  font-size: 17px;
+  color: #d4a056;
 }
 
+/* Payment Method Box */
 .payment-method {
-  margin-top: 15px;
+  margin-top: 18px;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -57,54 +98,45 @@
 
 .payment-method label {
   font-weight: bold;
+  color: #d4a056;
 }
 
 .payment-method input[type="text"] {
-  margin-left: 10px;
-  padding: 5px;
-  border: 1px solid #007bff;
-  border-radius: 4px;
+  padding: 7px 10px;
+  background: #1d1d1d;
+  border: 1px solid #d4a056;
+  border-radius: 8px;
+  color: #ffffff;
 }
 
+/* Collect Payment Button */
 .collect-btn {
-  margin-top: 15px;
+  margin-top: 18px;
   padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
+  background: #d4a056;
+  color: #1d1d1d;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.2s;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(212, 160, 86, 0.5);
 }
 
 .collect-btn:hover {
-  background-color: #218838;
+  background: #b38847;
 }
 
 .collect-btn:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-.payment-table tr:hover {
-  background-color: #f1f1f1;
+/* Success/Error Backgrounds (Optional Alerts) */
+.success-row {
+  background-color: #6bff8133;
 }
 
-.payment-table td,
-.payment-table th {
-  word-break: break-word;
-}
-
-/* Pending payments highlight */
-.payment-section .payment-table tbody tr {
-  background-color: #fff3cd; /* light yellow */
-}
-
-.payment-section .payment-table tbody tr:nth-child(even) {
-  background-color: #fff8e1; /* lighter yellow for even rows */
-}
-
-.payment-table.paid tbody tr {
-  background-color: #d4edda; /* light green for paid items */
+.error-row {
+  background-color: #ff636333;
 }

@@ -12,7 +12,7 @@ export default function Assign() {
 
   // 🔥 Load tables from backend
   const loadTables = () => {
-    fetch("https://error-404-server.onrender.com/api/tables")
+    fetch("http://localhost:5000/api/tables")
       .then((res) => res.json())
       .then(setTables)
       .catch((err) => console.error("Failed to fetch tables:", err));
@@ -20,7 +20,7 @@ export default function Assign() {
 
   // Fetch waiters and tables on mount
   useEffect(() => {
-    fetch("https://error-404-server.onrender.com/api/waiters")
+    fetch("http://localhost:5000/api/waiters")
       .then((res) => res.json())
       .then(setWaiters)
       .catch((err) => console.error("Failed to fetch waiters:", err));
@@ -44,7 +44,7 @@ export default function Assign() {
     setPopup({ show: true, type: "loading", message: "Assigning..." });
 
     try {
-      const res = await fetch("https://error-404-server.onrender.com/api/tables/assign", {
+      const res = await fetch("http://localhost:5000/api/tables/assign", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ waiterId: selectedWaiter, tables: selectedTables }),
@@ -78,7 +78,7 @@ export default function Assign() {
     setPopup({ show: true, type: "loading", message: "Removing..." });
 
     try {
-      const res = await fetch("https://error-404-server.onrender.com/api/tables/remove", {
+      const res = await fetch("http://localhost:5000/api/tables/remove", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tables: selectedTables }),

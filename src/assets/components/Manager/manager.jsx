@@ -26,7 +26,7 @@ const [stats, setStats] = useState({
 
 const fetchTodayStats = async () => {
   try {
-    const res = await fetch("https://error-404-server.onrender.com/api/dashboard/today-stats");
+    const res = await fetch("http://localhost:5000/api/dashboard/today-stats");
     const data = await res.json();
     if (data.success) setStats(data);
   } catch (err) {

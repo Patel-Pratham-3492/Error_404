@@ -1,81 +1,91 @@
 /* menu.css */
 
-/* Main container */
+/* Main Page Container    */
 .menu-container {
   padding: 20px;
   font-family: 'Arial', sans-serif;
-  background-color: #1e1e1e;
-  color: #f5d76e;
+  background-color: #141A20;
+  color: #EAF6FF;
   min-height: 100vh;
 }
 
-/* Page title */
+
+/* Page Title             */
 h1 {
   text-align: center;
   margin-bottom: 30px;
-  color: #f5d76e;
+  color: #EAF6FF;
 }
 
-/* Form for adding items */
+/* Add Item Form          */
 .menu-form {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  background-color: #2b2b2b;
+  background-color: #1A2127;
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 30px;
-  border: 2px solid #f5d76e;
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .menu-form label {
   flex: 1 1 100%;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #EAF6FF;
 }
 
 .menu-form input[type="text"],
 .menu-form input[type="number"],
 .menu-form select {
   flex: 1 1 100%;
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #f5d76e;
-  background-color: #1e1e1e;
-  color: #f5d76e;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(20, 26, 32, 0.85);
+  color: #EAF6FF;
+  outline: none;
+  transition: 0.25s;
+}
+
+.menu-form input:focus,
+.menu-form select:focus {
+  border-color: #5CC8FF;
+  box-shadow: 0 0 6px #5CC8FF;
 }
 
 .menu-form input[type="checkbox"] {
   margin-right: 5px;
-  accent-color: #f5d76e;
+  accent-color: #5CC8FF;
 }
 
 .menu-form button.add-btn {
-  background-color: #f5d76e;
-  color: #1e1e1e;
-  padding: 10px 15px;
+  background-color: #5CC8FF;
+  color: #0A0A0A;
+  padding: 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s;
 }
 
 .menu-form button.add-btn:hover {
-  background-color: #e6c454;
+  background-color: #3EB7F0;
 }
 
-/* Image preview */
+/* Image Preview          */
 .preview-image {
   width: 100px;
   height: 80px;
   object-fit: cover;
   border-radius: 5px;
   margin-top: 10px;
-  border: 2px solid #f5d76e;
+  border: 2px solid #5CC8FF;
 }
 
-/* Tabs for Food/Beverage */
+/* Tabs (Food / Beverage) */
 .menu-tabs {
   display: flex;
   gap: 10px;
@@ -86,9 +96,9 @@ h1 {
   flex: 1;
   padding: 10px;
   border: none;
-  border-radius: 5px;
-  background-color: #2b2b2b;
-  color: #f5d76e;
+  border-radius: 8px;
+  background-color: #1A2127;
+  color: #EAF6FF;
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s;
@@ -96,16 +106,17 @@ h1 {
 
 .menu-tabs button.active,
 .menu-tabs button:hover {
-  background-color: #f5d76e;
-  color: #1e1e1e;
+  background-color: #5CC8FF;
+  color: #0A0A0A;
 }
 
-/* Sub-category filter */
+/* Subcategory Filter     */
 .subcat-filter {
   margin-bottom: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
+  color: #EAF6FF;
 }
 
 .subcat-filter label {
@@ -113,15 +124,15 @@ h1 {
 }
 
 .subcat-filter select {
-  padding: 6px 10px;
-  border-radius: 5px;
-  border: 1px solid #f5d76e;
-  background-color: #1e1e1e;
-  color: #f5d76e;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(20, 26, 32, 0.85);
+  color: #EAF6FF;
   cursor: pointer;
 }
 
-/* Menu item cards */
+/* Menu Item Cards        */
 .menu-items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -129,8 +140,8 @@ h1 {
 }
 
 .menu-item-card {
-  background-color: #2b2b2b;
-  border: 2px solid #f5d76e;
+  background-color: #1A2127;
+  border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   overflow: hidden;
   padding: 15px;
@@ -142,37 +153,38 @@ h1 {
 
 .menu-item-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0px 4px 15px rgba(245, 215, 110, 0.4);
+  box-shadow: 0px 4px 20px rgba(92, 200, 255, 0.25);
 }
 
-/* Item image */
+/* Item Image             */
 .menu-item-image {
   width: 100%;
   height: 150px;
   object-fit: cover;
-  border-radius: 5px;
-  border: 1px solid #f5d76e;
+  border-radius: 6px;
+  border: 1px solid #5CC8FF;
 }
 
-/* Item details */
+/* Item Editable Inputs   */
 .menu-item-details input,
 .menu-item-details select {
   width: 100%;
-  padding: 6px;
+  padding: 10px;
   margin-bottom: 5px;
-  border-radius: 5px;
-  border: 1px solid #f5d76e;
-  background-color: #1e1e1e;
-  color: #f5d76e;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(20, 26, 32, 0.85);
+  color: #EAF6FF;
 }
 
 .menu-item-details label {
   display: flex;
   align-items: center;
   gap: 5px;
+  color: #EAF6FF;
 }
 
-/* Actions buttons */
+/* Action Buttons         */
 .menu-item-actions {
   display: flex;
   gap: 10px;
@@ -180,78 +192,77 @@ h1 {
 }
 
 .menu-item-actions button {
-  padding: 7px 12px;
+  padding: 10px 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .menu-item-actions button.update-btn {
-  background-color: #f5d76e;
-  color: #1e1e1e;
+  background-color: #5CC8FF;
+  color: #0A0A0A;
 }
 
 .menu-item-actions button.update-btn:hover {
-  background-color: #e6c454;
+  background-color: #3EB7F0;
 }
 
 .menu-item-actions button.delete-btn {
-  background-color: #e74c3c;
-  color: #fff;
+  background-color: #FF6363;
+  color: white;
 }
 
 .menu-item-actions button.delete-btn:hover {
-  background-color: #c0392b;
+  background-color: #D9534F;
 }
 
-/* Popup */
+/* Popup (Loader/Status)  */
 .popup {
   position: fixed;
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #2b2b2b;
-  border: 2px solid #f5d76e;
-  padding: 20px 30px;
-  border-radius: 10px;
+  background: #151A1E;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px 40px;
+  border-radius: 16px;
   text-align: center;
   z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  min-width: 250px;
+  gap: 15px;
+  min-width: 260px;
 }
 
 .popup p {
-  color: #f5d76e;
+  color: #EAF6FF;
   margin: 0;
   font-weight: bold;
 }
 
 .popup.loading .loader {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #f5d76e;
+  border: 6px solid #3A3A3A;
+  border-top: 6px solid #5CC8FF;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 45px;
+  height: 45px;
   animation: spin 1s linear infinite;
 }
 
 .popup.success .done {
-  font-size: 30px;
-  color: #2ecc71;
+  font-size: 40px;
+  color: #6BFF81;
 }
 
 .popup.error .error {
-  font-size: 30px;
-  color: #e74c3c;
+  font-size: 40px;
+  color: #FF6363;
 }
 
-/* Loader animation */
+/* Loader Animation */
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }

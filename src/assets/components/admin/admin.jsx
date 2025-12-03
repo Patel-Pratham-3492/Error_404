@@ -25,18 +25,18 @@ export default function Admin() {
   }, [navigate]);
 
   const roleDashboards = [
+    { role: "owner", label: "Owner Dashboard", path: "/owner"},
+    { role: "manager", label: "Manager Dashboard", path: "/manager" },
     { role: "host", label: "Host Dashboard", path: "/host" },
     { role: "waiter", label: "Waiter Dashboard", path: "/waiter" },
     { role: "chef", label: "Chef Dashboard", path: "/chef" },
-    { role: "manager", label: "Manager Dashboard", path: "/manager" },
-    { role: "owner", label: "Owner Dashboard", path: "/owner" },
   ];
 
   return (
     <div>
       {user && <RoleNavbar role={user.role} name={user.firstName} />}
       <div className="admin-container">
-        <h1>Admin Dashboard</h1>
+        <h1 className="admin-h1">Admin Dashboard</h1>
         <p>Welcome, {user?.firstName}. You can navigate to any role dashboard:</p>
 
         <div className="role-buttons">

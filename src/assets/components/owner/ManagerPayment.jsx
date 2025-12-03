@@ -11,7 +11,7 @@ export default function ManagerPayment() {
 
   const fetchAllTodayPayments = async () => {
     try {
-      const res = await fetch("https://error-404-server.onrender.com/api/payment/today/all");
+      const res = await fetch("http://localhost:5000/api/payment/today/all");
       const data = await res.json();
       if (!data.success) return;
 
@@ -67,7 +67,7 @@ export default function ManagerPayment() {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://error-404-server.onrender.com/api/payment/collect-multiple",
+        "http://localhost:5000/api/payment/collect-multiple",
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

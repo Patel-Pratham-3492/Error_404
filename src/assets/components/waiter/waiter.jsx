@@ -28,7 +28,7 @@ export default function Waiter() {
 
   const fetchTables = async (waiterId) => {
     try {
-      const res = await fetch("https://error-404-server.onrender.com/api/table");
+      const res = await fetch("http://localhost:5000/api/table");
       const data = await res.json();
       if (data.success) {
         const assigned = data.tables.filter(
@@ -73,7 +73,7 @@ export default function Waiter() {
 
   const freeTable = async (tableId) => {
   try {
-    const res = await fetch(`https://error-404-server.onrender.com/api/table/free/${tableId}`, {
+    const res = await fetch(`http://localhost:5000/api/table/free/${tableId}`, {
       method: "PUT",
     });
     const data = await res.json();
