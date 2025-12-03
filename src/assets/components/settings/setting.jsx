@@ -50,7 +50,7 @@ export default function Setting() {
 
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/users/${user._id}/change-password`, {
+      const res = await fetch(`http://3.128.94.231:5000/api/users/${user._id}/change-password`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ oldPassword, newPassword }),

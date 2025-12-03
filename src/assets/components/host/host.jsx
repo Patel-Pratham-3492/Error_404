@@ -50,7 +50,7 @@ const showPopup = (message) => {
   // Fetch tables
   const fetchTables = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/table");
+      const res = await fetch("http://3.128.94.231:5000/api/table");
       const data = await res.json();
       if (data.success) setTables(data.tables);
     } catch (err) {
@@ -80,7 +80,7 @@ const showPopup = (message) => {
   const fetchTodayReservations = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/reservations/today");
+      const res = await fetch("http://3.128.94.231:5000/api/reservations/today");
       const data = await res.json();
       if (data.success) setReservations(data.reservations);
     } catch (err) {
@@ -99,7 +99,7 @@ const showPopup = (message) => {
     setResError(false);
 
     try {
-      const res = await fetch("http://localhost:5000/api/reservations", {
+      const res = await fetch("http://3.128.94.231:5000/api/reservations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -143,7 +143,7 @@ const showPopup = (message) => {
   const updateStatus = async () => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/reservations/update-status/${selectedRes._id}`,
+        `http://3.128.94.231:5000/api/reservations/update-status/${selectedRes._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -176,7 +176,7 @@ const showPopup = (message) => {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/table/occupy/${table._id}`,
+        `http://3.128.94.231:5000/api/table/occupy/${table._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -206,7 +206,7 @@ const markOpened = async (table) => {
 
   try {
     const res = await fetch(
-      `http://localhost:5000/api/table/open/${table._id}`,
+      `http://3.128.94.231:5000/api/table/open/${table._id}`,
       { method: "PUT" }
     );
     const data = await res.json();

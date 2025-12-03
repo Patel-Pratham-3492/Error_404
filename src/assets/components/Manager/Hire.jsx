@@ -48,7 +48,7 @@ export default function Hire() {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/send", {
+      const response = await fetch("http://3.128.94.231:5000/api/users/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),

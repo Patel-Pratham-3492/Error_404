@@ -7,7 +7,7 @@ export default function TableDashboard() {
   // Fetch all tables
   const fetchTables = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/table");
+      const res = await fetch("http://3.128.94.231:5000/api/table");
       const data = await res.json();
       if (data.success) setTables(data.tables);
       else console.error("Failed to fetch tables:", data.message);
@@ -29,7 +29,7 @@ export default function TableDashboard() {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/table/occupy/${table._id}`,
+        `http://3.128.94.231:5000/api/table/occupy/${table._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -59,7 +59,7 @@ export default function TableDashboard() {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/table/open/${table._id}`,
+        `http://3.128.94.231:5000/api/table/open/${table._id}`,
         { method: "PUT" }
       );
       const data = await res.json();

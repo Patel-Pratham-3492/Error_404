@@ -9,7 +9,7 @@ export default function Fire() {
   // Fetch all users
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/users/all");
+      const response = await fetch("http://3.128.94.231:5000/api/users/all");
       const data = await response.json();
       setUsers(data);
     } catch (err) {
@@ -32,7 +32,7 @@ export default function Fire() {
     setPopup({ visible: true, status: "loading", message: "Firing..." });
 
     try {
-      const response = await fetch(`http://localhost:5000/api/users/fire/${selectedUser._id}`, {
+      const response = await fetch(`http://3.128.94.231:5000/api/users/fire/${selectedUser._id}`, {
         method: "DELETE",
       });
 
