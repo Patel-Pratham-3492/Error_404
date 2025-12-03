@@ -71,29 +71,39 @@ export default function Waiter() {
     setSelectedTable(null);
   };
 
-  const freeTable = async (tableId) => {
+const freeTable = async (tableId, customerCount) => {
   try {
+    // 1️ First check if payments exist for this table
+    const payRes = await fetch(`http://localhost:5000/api/payment/table/${customerCount}`);
+    const payData = await payRes.json();
+
+    // 2️ If there are pending payments, block free table
+    if (payData.success && payData.items && payData.items.length > 0) {
+      showPopupmessage("Cannot free table — payments are still pending!");
+      return; // STOP HERE!
+    }
+
+    // 3️ If no pending payments → free table
     const res = await fetch(`http://localhost:5000/api/table/free/${tableId}`, {
       method: "PUT",
     });
+
     const data = await res.json();
 
     if (data.success) {
-      // Update table list after freeing
       setTables((prev) =>
         prev.map((t) => (t._id === tableId ? data.table : t))
       );
-      // Optional: show popup message
-      //setShowPopup(false); // close popup if it was open
-      showPopupmessage("now, the table is free"); // can replace with popup component
+      showPopupmessage("Table successfully freed!");
     } else {
-      showPopupmessage("there is an error!");
+      showPopupmessage("Error freeing table!");
     }
   } catch (err) {
     console.error(err);
-    showPopupmessage("there is an error!");
+    showPopupmessage("Server error!");
   }
 };
+
 
 
   return (
@@ -133,7 +143,8 @@ export default function Waiter() {
                 className="free-table-btn"
                 onClick={(e) => {
                   e.stopPropagation();
-                  freeTable(t._id);
+                  freeTable(t._id, t.customerCount);
+
                 }}
               >
                 Free Table
