@@ -28,7 +28,7 @@ export default function Menu() {
   // Fetch menu items
   const fetchItems = async () => {
     try {
-      const res = await fetch("http://3.128.94.231:5000/api/menu");
+      const res = await fetch("http://localhost:5000/api/menu");
       const data = await res.json();
       setItems(data);
     } catch (err) {
@@ -67,7 +67,7 @@ export default function Menu() {
   if (image) formData.append("image", image);
 
   try {
-    const res = await fetch("http://3.128.94.231:5000/api/menu", { method: "POST", body: formData });
+    const res = await fetch("http://localhost:5000/api/menu", { method: "POST", body: formData });
     if (!res.ok) throw new Error("Add failed");
     await res.json();
     fetchItems();
@@ -96,7 +96,7 @@ export default function Menu() {
   const handleDelete = async (id) => {
     showPopup("loading", "Deleting...");
     try {
-      const res = await fetch(`http://3.128.94.231:5000/api/menu/${id}`, { method: "DELETE" });
+      const res = await fetch(`http://localhost:5000/api/menu/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Delete failed");
       await res.json();
       fetchItems();
@@ -119,7 +119,7 @@ export default function Menu() {
       formData.append("Description", Description);
       if (item.imageFile) formData.append("image", item.imageFile);
 
-      const res = await fetch(`http://3.128.94.231:5000/api/menu/${item._id}`, {
+      const res = await fetch(`http://localhost:5000/api/menu/${item._id}`, {
         method: "PUT",
         body: formData
       });

@@ -12,7 +12,7 @@ export default function Track({ table }) {
   const fetchOrders = async () => {
     if (!table) return;
     try {
-      const res = await fetch(`http://3.128.94.231:5000/api/order/table/${table._id}`);
+      const res = await fetch(`http://localhost:5000/api/order/table/${table._id}`);
       const data = await res.json();
       if (data.success) {
         // Filter out orders that are "done" and only keep pending/paymentstatus !== "done"
@@ -57,7 +57,7 @@ export default function Track({ table }) {
     };
 
     try {
-      const res = await fetch(`http://3.128.94.231:5000/api/order/${_id}/update-item`, {
+      const res = await fetch(`http://localhost:5000/api/order/${_id}/update-item`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items: updatedItems }),
@@ -79,7 +79,7 @@ export default function Track({ table }) {
     showPopup("success", "Deleting...");
 
     try {
-      const res = await fetch(`http://3.128.94.231:5000/api/order/${orderId}`, {
+      const res = await fetch(`http://localhost:5000/api/order/${orderId}`, {
         method: "DELETE",
       });
       const data = await res.json();

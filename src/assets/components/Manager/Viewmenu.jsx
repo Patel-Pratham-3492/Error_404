@@ -16,7 +16,7 @@ export default function ViewMenu() {
   // Fetch menu items
   const fetchItems = async () => {
     try {
-      const res = await fetch("http://3.128.94.231:5000/api/menu");
+      const res = await fetch("http://localhost:5000/api/menu");
       const data = await res.json();
       console.log("Fetched items:", data);
       setItems(data);
@@ -39,7 +39,7 @@ export default function ViewMenu() {
   const handleDelete = async (id) => {
     showPopup("loading", "Deleting...");
     try {
-      const res = await fetch(`http://3.128.94.231:5000/api/menu/${id}`, { method: "DELETE" });
+      const res = await fetch(`http://localhost:5000/api/menu/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Delete failed");
       await res.json();
       fetchItems();
@@ -61,7 +61,7 @@ export default function ViewMenu() {
       formData.append("special", item.special);
       if (item.imageFile) formData.append("image", item.imageFile);
 
-      const res = await fetch(`http://3.128.94.231:5000/api/menu/${item._id}`, {
+      const res = await fetch(`http://localhost:5000/api/menu/${item._id}`, {
         method: "PUT",
         body: formData
       });
@@ -136,7 +136,7 @@ export default function ViewMenu() {
             <div key={item._id} className="menu-item-card">
               {item.image && (
                 <img
-                  src={`http://3.128.94.231:5000${item.image}`}
+                  src={`http://localhost:5000${item.image}`}
                   alt={item.name}
                   className="menu-item-image"
                 />

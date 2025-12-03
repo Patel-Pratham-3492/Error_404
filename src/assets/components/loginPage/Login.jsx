@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
+import bgImg from "./bgimage.jpg";
 
 function Login() {
   const [userId, setUserId] = useState("");
@@ -24,7 +25,7 @@ function Login() {
     }
 
     try {
-      const response = await fetch("http://3.128.94.231:5000/api/users/login", {
+      const response = await fetch("http://localhost:5000/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId, password }),
@@ -73,7 +74,7 @@ function Login() {
     }
 
     try {
-      const res = await fetch("http://3.128.94.231:5000/api/users/check_waiterid", {
+      const res = await fetch("http://localhost:5000/api/users/check_waiterid", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: userId, waiterId }),
@@ -108,7 +109,7 @@ function Login() {
   };
 
   return (
-    <section className="login-page">
+    <section className="login-page" style={{ backgroundImage: `url(${bgImg})` }}>
       <div className="login-box">
         <h2>Login</h2>
 

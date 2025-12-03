@@ -28,7 +28,7 @@ export default function Waiter() {
 
   const fetchTables = async (waiterId) => {
     try {
-      const res = await fetch("http://3.128.94.231:5000/api/table");
+      const res = await fetch("http://localhost:5000/api/table");
       const data = await res.json();
       if (data.success) {
         const assigned = data.tables.filter(
@@ -74,7 +74,7 @@ export default function Waiter() {
 const freeTable = async (tableId, customerCount) => {
   try {
     // 1️ First check if payments exist for this table
-    const payRes = await fetch(`http://3.128.94.231:5000/api/payment/table/${customerCount}`);
+    const payRes = await fetch(`http://localhost:5000/api/payment/table/${customerCount}`);
     const payData = await payRes.json();
 
     // 2️ If there are pending payments, block free table
@@ -84,7 +84,7 @@ const freeTable = async (tableId, customerCount) => {
     }
 
     // 3️ If no pending payments → free table
-    const res = await fetch(`http://3.128.94.231:5000/api/table/free/${tableId}`, {
+    const res = await fetch(`http://localhost:5000/api/table/free/${tableId}`, {
       method: "PUT",
     });
 
